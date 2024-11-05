@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Inter, Calistoga } from "next/font/google";
+import { twMerge } from "tailwind-merge";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const calistoga = Calistoga({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Created with the help of Frontend Tribe",
+  title: "Yadav Amarjit",
+  description: "Empowering Ideas into Interactive Digital Realities",
 };
 
 export default function RootLayout({
@@ -13,7 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={twMerge(
+          inter.variable,
+          calistoga.variable,
+          "bg-gray-800 text-white antialiased font-sans"
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }

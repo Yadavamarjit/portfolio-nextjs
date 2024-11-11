@@ -2,8 +2,9 @@
 import { useState, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
-import { Group } from "three";
+import { Points as ThreePoints } from "three";
 
+// Helper function to generate random points in a sphere
 const inSphere = (n: number, radius: number): Float32Array => {
   const positions = new Float32Array(n * 3);
   for (let i = 0; i < n; i++) {
@@ -23,7 +24,7 @@ interface StarsProps {
 }
 
 const Stars: React.FC<StarsProps> = (props) => {
-  const ref = useRef<Group>(null);
+  const ref = useRef<ThreePoints>(null);
   const [sphere] = useState<Float32Array>(() => inSphere(5000, 1.2));
 
   useFrame((state, delta) => {

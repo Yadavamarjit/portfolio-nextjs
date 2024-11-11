@@ -1,3 +1,4 @@
+import StarsCanvas from "@/components/StarCanvas/StarCanvas";
 import { AboutSection } from "@/sections/About";
 import ContactSection from "@/sections/Contact";
 import { Footer } from "@/sections/Footer";
@@ -8,14 +9,15 @@ import { TapeSection } from "@/sections/Tape";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="relative z-0">
       <Header />
       <HeroSection />
       <ProjectsSection />
       <TapeSection />
       <AboutSection />
       <ContactSection />
-      <Footer />
+      {/* <Footer /> */}
+      <StarsCanvas />
     </div>
   );
 }

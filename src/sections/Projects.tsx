@@ -62,10 +62,11 @@ export const ProjectsSection = () => {
         </p>
 
         <div className="flex flex-col mt-10 gap-20 md:mt-20">
-          {portfolioProjects.map((project) => (
+          {portfolioProjects.map((project, indx) => (
             <div
               key={project.company}
-              className="bg-gray-800 lg:px-20 lg:pr-0 pt-16 p-8 pb-0 md:pt-12 md:px-10 rounded-3xl overflow-hidden relative after:content-[''] after:absolute after:inset-0 z-0 after:z-10 after:outline-2 after:outline after:-outline-offset-2 after:rounded-3xl after:outline-white/20 after:pointer-events-none"
+              className="bg-gray-800 sticky top-0 lg:px-20 lg:pr-0 pt-16 p-8 pb-0 md:pt-12 md:px-10 rounded-3xl overflow-hidden after:content-[''] after:absolute after:inset-0 z-0 after:z-10 after:outline-2 after:outline after:-outline-offset-2 after:rounded-3xl after:outline-white/20 after:pointer-events-none"
+              style={{ top: `calc(64px + ${indx * 20}px)` }}
             >
               <div
                 className="inset-0 absolute -z-10 opacity-5"

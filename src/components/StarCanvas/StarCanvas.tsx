@@ -1,9 +1,22 @@
 "use client";
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
-import * as random from "maath/random/dist/maath-random.esm";
-import { Group, BufferGeometry, Material } from "three";
+import { Group } from "three";
+
+const inSphere = (n: number, radius: number): Float32Array => {
+  const positions = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const r = radius * Math.cbrt(Math.random());
+    const theta = Math.random() * 2 * Math.PI;
+    const phi = Math.acos(2 * Math.random() - 1);
+
+    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i * 3 + 2] = r * Math.cos(phi);
+  }
+  return positions;
+};
 
 interface StarsProps {
   [key: string]: any;
@@ -11,9 +24,7 @@ interface StarsProps {
 
 const Stars: React.FC<StarsProps> = (props) => {
   const ref = useRef<Group>(null);
-  const [sphere] = useState<Float32Array>(() =>
-    random.inSphere(new Float32Array(5000), { radius: 1.2 })
-  );
+  const [sphere] = useState<Float32Array>(() => inSphere(5000, 1.2));
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -39,11 +50,9 @@ const Stars: React.FC<StarsProps> = (props) => {
 
 const StarsCanvas: React.FC = () => {
   return (
-    <div className="w-full h-auto absolute inset-0 z-[-1]">
+    <div className="w-full h-full absolute inset-0 z-[-1]">
       <Canvas camera={{ position: [0, 0, 1] }}>
-        <Suspense fallback={null}>
-          <Stars />
-        </Suspense>
+        <Stars />
         <Preload all />
       </Canvas>
     </div>

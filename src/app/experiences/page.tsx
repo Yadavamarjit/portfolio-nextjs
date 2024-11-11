@@ -94,7 +94,7 @@ const ExperiencePage = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl sm:text-5xl font-sans font-bold bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent">
+          <h1 className=" md:text-5xl tracking-wide text-center font-serif">
             Professional Journey
           </h1>
         </motion.div>
@@ -107,7 +107,7 @@ const ExperiencePage = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-4"
           >
-            <div className="space-y-4">
+            <div className="space-y-4 sticky top-1">
               {experiences.map((exp) => (
                 <motion.div
                   key={exp.company}

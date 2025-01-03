@@ -3,6 +3,7 @@ import SocialLinks from "@/components/SocialLinks/SocialLinks";
 import StarsCanvas from "@/components/StarCanvas/StarCanvas";
 import { AboutSection } from "@/sections/About";
 import ContactSection from "@/sections/Contact";
+import Experiences from "@/sections/Experiences";
 import { Footer } from "@/sections/Footer";
 import { Header } from "@/sections/Header";
 import { HeroSection } from "@/sections/Hero";
@@ -15,6 +16,7 @@ export default function Home() {
       <div className="relative z-0">
         <Header />
         <HeroSection />
+        <Experiences />
         <ProjectsSection />
         <TapeSection />
         <AboutSection />

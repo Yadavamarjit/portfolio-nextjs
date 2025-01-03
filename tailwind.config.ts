@@ -1,3 +1,4 @@
+import { a, s } from "framer-motion/client";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -24,6 +25,11 @@ const config: Config = {
       fontFamily: {
         sans: "var(--font-sans)",
         serif: "var(--font-serif)",
+      },
+      colors: {
+        accent: "#64ffda",
+        primary: "#fffff",
+        secondary: "#B0BAD7",
       },
       animation: {
         marquee: "marquee 40s linear infinite",

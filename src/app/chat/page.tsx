@@ -23,14 +23,6 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Function to remove duplicate consecutive words
-  const removeDuplicateWords = (text: string): string => {
-    return text
-      .split(" ")
-      .filter((word, index, array) => word !== array[index - 1])
-      .join(" ");
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -66,7 +58,7 @@ const ChatInterface = () => {
         if (done) break;
 
         const chunk = decoder.decode(value);
-        const parts = chunk.split("data: ").filter((part) => part.trim());
+        const parts = chunk.split("data: ").filter((part) => part);
         parts.forEach((part) => {
           msg += part;
         });
@@ -106,7 +98,7 @@ const ChatInterface = () => {
               className={`max-w-[80%] rounded-lg p-3 ${
                 message.role === "user"
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-gray-800"
+                  : "bg-gray-200 text-gray-800 overflow-x-scroll "
               }`}
             >
               {message.role === "assistant" ? (

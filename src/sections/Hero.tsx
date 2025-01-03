@@ -2,7 +2,7 @@
 
 export const HeroSection = () => {
   return (
-    <div className="py-16 md:py-24 lg:py-32 min-h-screen px-6 sm:px-12 md:px-16 lg:px-24 flex flex-col justify-center">
+    <div className="sec-container min-h-screen flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full">
         <p className="text-[#64ffda] mb-4 text-base sm:text-lg tracking-widest font-mono">
           Hi, my name is

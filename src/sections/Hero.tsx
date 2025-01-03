@@ -49,7 +49,7 @@ export const HeroSection = () => {
 
           <div className="mt-8 sm:mt-10 lg:mt-12">
             <button className="w-full sm:w-auto group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300">
-              Let's create something extraordinary!
+              Let&apos;s create something extraordinary!
             </button>
           </div>
         </div>

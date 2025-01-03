@@ -41,7 +41,7 @@ export async function POST(req) {
           const content = chunk.choices[0]?.delta?.content || "";
           if (content) {
             // Write the chunk to the stream
-            console.log("Streaming chunk:", content);
+            // console.log("Streaming chunk:", content);
             await writer.write(encoder.encode(`data: ${content}`));
           }
         }

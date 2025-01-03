@@ -76,14 +76,14 @@ const ExperiencePage = () => {
   const [activeCompany, setActiveCompany] = useState<string>(
     experiences[0].company
   );
-  const searchParams = useSearchParams();
-  const name = searchParams.get("company");
-  const companyId: number | null = name !== null ? Number(name) : null;
-  useEffect(() => {
-    if (companyId && experiences[companyId]) {
-      setActiveCompany(experiences[companyId].company);
-    }
-  }, []);
+  // const searchParams = useSearchParams();
+  // const name = searchParams.get("company");
+  // const companyId: number | null = name !== null ? Number(name) : null;
+  // useEffect(() => {
+  // if (companyId && experiences[companyId]) {
+  //   setActiveCompany(experiences[companyId].company);
+  // }
+  // }, []);
 
   return (
     <div className="relative z-0 min-h-screen text-white overflow-hidden">

@@ -24,7 +24,7 @@ export default function Home() {
         {/* <Footer /> */}
         <StarsCanvas />
       </div>
-      <div className="fixed bottom-10 z-50 right-10">
+      <div className="fixed lg:bottom-10 z-50 lg:right-10 bottom-5 right-6">
         <AIAssistantAnimation size={100} />
       </div>
       <SocialLinks />

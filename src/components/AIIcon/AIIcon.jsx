@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 export const AIAssistantAnimation = ({ size = 192 }) => {
   const [phase, setPhase] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   // Calculate scale factor based on default size of 192px (48 * 4)
   const scale = size / 192;

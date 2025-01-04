@@ -21,7 +21,7 @@ const hobbies = [
   { title: "Traveling", icon: "✈️", top: "65%", left: "1%" },
   { title: "Puzzles", icon: "🧩", top: "70%", left: "35%" },
   { title: "Movies", icon: "🎬", top: "25%", left: "25%" },
-  { title: "Board Games", icon: "♟️", top: "70%", left: "65%" },
+  { title: "MMA", icon: "🥊", top: "70%", left: "65%" },
   { title: "Gardening", icon: "🌱", top: "0%", left: "45%" },
 ];
 

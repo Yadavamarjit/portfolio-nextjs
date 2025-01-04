@@ -13,7 +13,7 @@ export const HeroSection = () => {
         </h1>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-[#8892b0] mb-6 sm:mb-8">
-          I build things for the web.
+          I build what you envision
         </h1>
 
         <div className="relative max-w-xl lg:max-w-2xl">

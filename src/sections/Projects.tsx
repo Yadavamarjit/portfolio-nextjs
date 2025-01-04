@@ -1,121 +1,120 @@
-import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
-import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
-import GraingImg from "@/assets/images/grain.jpg";
-import CheckIcon from "@/assets/icons/check-circle.svg";
-import ArrowRight from "@/assets/icons/arrow-up-right.svg";
-import Image from "next/image";
+import SectionTitle from "@/components/SectionTitle/SectionTitle";
 
-const portfolioProjects = [
+export const getRandomColor = () => {
+  let previousColors: any = [];
+
+  return () => {
+    const colorArray = [
+      "text-blue-500",
+      "text-green-500",
+      "text-pink-500",
+      "text-orange-500",
+      "text-yellow-500",
+      "text-purple-500",
+      "text-red-500",
+      "text-cyan-500",
+      "text-teal-500",
+      "text-lime-500",
+      "text-pink-500",
+    ];
+
+    // Filter out previously used colors
+    const availableColors = colorArray.filter(
+      (color) => !previousColors.includes(color)
+    );
+
+    // If all colors have been used, reset the array
+    if (availableColors.length === 0) {
+      previousColors = [];
+    }
+
+    // Get a random index from the available colors
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+
+    // Get the random color and add it to the previously used colors
+    const randomColor = availableColors[randomIndex];
+    previousColors.push(randomColor);
+
+    return randomColor;
+  };
+};
+const projectsData = [
   {
-    company: "Acme Corp",
-    year: "2022",
-    title: "Dark Saas Landing Page",
-    results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
-    ],
-    link: "https://youtu.be/4k7IdSLxh6w",
-    image: darkSaasLandingPage,
+    projectName: "Fruit Catcher",
+    description:
+      "In this engaging fruit catcher game, players strive to catch falling fruits while avoiding obstacles. The game features a dynamic leaderboard to track top scores, and various in-game power-ups that enhance the gameplay experience. With its intuitive mechanics and exciting challenges, players are rewarded for their skills and quick reflexes as they compete for the highest score.",
+    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1723885548610_Screencastfrom2024-08-1300-51-19-ezgif.com-video-to-gif-converter.gif?alt=media&token=784564de-a40b-434c-a42e-5e647fdbed2b",
+    techs: ["React", "ExpressJS", "MongoDB", "Javascript"],
+    link: "https://fruits-catcher.netlify.app/",
   },
   {
-    company: "Innovative Co",
-    year: "2021",
-    title: "Light Saas Landing Page",
-    results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
-    ],
-    link: "https://youtu.be/7hi5zwO75yc",
-    image: lightSaasLandingPage,
+    projectName: "StockScope",
+    description:
+      "A dynamic user interface that displays real-time stock prices and their detailed analysis, powered by mock data. Designed for intuitive use, it offers insights into stock trends, enabling users to efficiently track and assess stock performance.",
+    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/Screencastfrom2024-09-2215-22-12-ezgif.com-optimize.gif?alt=media&token=0e95e191-901d-4f7b-8079-d740dc0fe7c7",
+    techs: ["React", "Javascript", "D3.js"],
+    link: "https://tradingscreen.netlify.app/",
   },
   {
-    company: "Quantum Dynamics",
-    year: "2023",
-    title: "AI Startup Landing Page",
-    results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
-    ],
-    link: "https://youtu.be/Z7I5uSRHMHg",
-    image: aiStartupLandingPage,
+    projectName: "QTrip",
+    description:
+      "Your virtual travel hub for immersive exploration. Discover destinations with tags like cycling and skiing, simulate reservations, and manage bookings. Experience hourly activity booking and dive into detailed descriptions and images. Plan your dream journey authentically without real transactions – an innovative way to connect with travel interests.",
+    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1705453911139_qtrip.png?alt=media&token=26526642-e083-460d-af18-c205f4b5651f",
+    techs: ["ExpressJS", "React", "NodeJS", "Javascript"],
+  },
+  {
+    projectName: "QKart",
+    description:
+      'Qkart is an e-commerce web app designed to offer a seamless shopping experience. It features user authentication, allowing secure access to personalized accounts. The app also includes an "Add to Cart" functionality, enabling users to easily manage their desired products. Additionally, Qkart offers a demo payment system, providing a complete and interactive shopping experience from selection to checkout.',
+    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1705451392416_Screenshot%202024-01-17%20055826.png?alt=media&token=7b89a1cd-26a4-4546-82fb-5fb4ba22609d",
+    techs: ["React", "ExpressJS", "MongoDB", "Javascript"],
   },
 ];
 
 export const ProjectsSection = () => {
   return (
-    <section className="pb-16">
-      <div className="container">
-        <div className="flex justify-center"></div>
-        <p className="uppercase font-semibold tracking-widest bg-gradient-to-r from-emerald-300 to-sky-400 text-transparent bg-clip-text text-center">
-          Real world results
-        </p>
-
-        <h2 className="text-center font-serif mt-6 text-3xl md:text-5xl">
-          Featured Projects
-        </h2>
-        <p className="text-center mt-4 text-white/60 md:max-w-md mx-auto">
-          See how I transformed concept into engaging digital experience
-        </p>
-
-        <div className="flex flex-col mt-10 gap-20 md:mt-20">
-          {portfolioProjects.map((project, indx) => (
-            <div
-              key={project.company}
-              className="bg-gray-800 sticky top-0 lg:px-20 lg:pr-0 pt-16 p-8 pb-0 md:pt-12 md:px-10 rounded-3xl overflow-hidden after:content-[''] after:absolute after:inset-0 z-0 after:z-10 after:outline-2 after:outline after:-outline-offset-2 after:rounded-3xl after:outline-white/20 after:pointer-events-none"
-              style={{ top: `calc(64px + ${indx * 20}px)` }}
-            >
-              <div
-                className="inset-0 absolute -z-10 opacity-5"
-                style={{ backgroundImage: `url(${GraingImg.src})` }}
-              ></div>
-              <div className="lg:grid lg:grid-cols-2 gap-16">
-                <div className="pb-16">
-                  <div className="bg-gradient-to-r from-emerald-300 to-sky-400 text-transparent gap-2 bg-clip-text inline-flex font-bold uppercase tracking-widest text-sm">
-                    <span>{project.company}</span>
-                    <span>&bull;</span>
-                    <span>{project.year}</span>
-                  </div>
-
-                  <h3 className="font-serif text-2xl md:text-4xl md:mt-5 mt-2">
-                    {project.title}
-                  </h3>
-
-                  <hr className="border-t-2 border-white/5 mt-4 md:mt-5" />
-
-                  <ul className="mt-4 md:mt-5 flex gap-4 flex-col">
-                    {project.results.map((result) => (
-                      <li
-                        className="flex gap-2 text-sm md:text-base text-white/50 "
-                        key={result.title}
-                      >
-                        <CheckIcon className="size-5 md:size-6" />
-                        <span>{result.title}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <a href="">
-                    <button className="bg-white text-gray-950 h-12 rounded-xl font-semibold w-full md:w-auto px-8 flex items-center justify-center gap-2 mt-8">
-                      <span>View live site</span>
-                      <ArrowRight className="size-4 lg:size-5" />
-                    </button>
-                  </a>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none"
-                    src={project.image}
-                    alt={project.title}
-                  />
-                </div>
+    <section className="sec-container">
+      <SectionTitle title="Some Things I've Built" />
+      <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
+        {projectsData.map((project, index) => (
+          <div
+            key={index}
+            className="rounded-lg shadow-lg backdrop-blur hover:shadow-xl transition-shadow  border-accent/40 border"
+          >
+            <img
+              src={project.img}
+              alt={project.projectName}
+              className="w-full h-48 object-cover rounded-t-lg"
+            />
+            <div className="p-5">
+              <h3 className="text-xl font-bold text-accent">
+                {project.projectName}
+              </h3>
+              <p className="text-sm text-secondary mt-3">
+                {project.description}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.techs.map((tag) => (
+                  <p key={tag} className={`text-[14px] ${getRandomColor()()}`}>
+                    #{tag}
+                  </p>
+                ))}
               </div>
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full "
+                >
+                  <button className="w-full mt-4 group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300">
+                    View Project
+                  </button>
+                </a>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

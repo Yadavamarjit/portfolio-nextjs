@@ -79,7 +79,7 @@ export const ProjectsSection = () => {
         {projectsData.map((project, index) => (
           <div
             key={index}
-            className="rounded-lg shadow-lg backdrop-blur hover:shadow-xl transition-shadow  border-accent/40 border"
+            className="rounded-lg  backdrop-blur transition-shadow  border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl"
           >
             <img
               src={project.img}

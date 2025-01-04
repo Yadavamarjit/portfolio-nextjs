@@ -11,6 +11,7 @@ import CardHeader from "@/components/CardHeader/CardHeader";
 import { ToolBoxItems } from "@/components/ToolBoxItems/ToolBoxItems";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import SectionTitle from "@/components/SectionTitle/SectionTitle";
 
 const hobbies = [
   { title: "Gaming", icon: "🎮", top: "25%", left: "50%" },
@@ -28,13 +29,9 @@ const hobbies = [
 export const AboutSection = () => {
   const dragConstraintRef = useRef(null);
   return (
-    <div className="py-20">
+    <div className="sec-container">
       <div className="container mt-20">
-        <SectionHeader
-          title="About Me"
-          subtitle="A Glimpse into my World"
-          description="Learn about who I'm and what I do, and what inspires me"
-        />
+        <SectionTitle title="About Me" />
         <div className="mt-20 flex flex-col gap-6">
           <div className="md:grid md:grid-cols-5 md:gap-8">
             <Card className="h-[320px] col-span-2">

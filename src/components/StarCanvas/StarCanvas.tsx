@@ -51,7 +51,7 @@ const Stars: React.FC<StarsProps> = (props) => {
 
 const StarsCanvas: React.FC = () => {
   return (
-    <div className="w-full h-full absolute inset-0 z-[-1]">
+    <div className="w-full h-full absolute inset-0 z-[-1] hidden lg:block">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Stars />
         <Preload all />

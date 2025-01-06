@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Calistoga } from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import "leaflet/dist/leaflet.css";
-
+import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -41,6 +40,7 @@ export default function RootLayout({
         )}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

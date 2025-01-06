@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, MutableRefObject } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { MapPin, X } from "lucide-react";
 import "leaflet/dist/leaflet.css";
+import { Map as LeafletMap } from "leaflet";
 
 interface LocationMarker {
   name: string;
@@ -13,11 +13,17 @@ interface LocationMarker {
   address: string;
 }
 
+interface MapComponentProps {
+  locations: LocationMarker[];
+  selectedLocation: string | null;
+  mapRef: MutableRefObject<LeafletMap | null>;
+}
+
 const MapContent = () => {
   const [mounted, setMounted] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [showSidebar, setShowSidebar] = useState(false);
-  const mapInstanceRef = useRef(null);
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -51,7 +57,6 @@ const MapContent = () => {
 
   return (
     <div className="relative h-[600px] w-full">
-      {/* Mobile Toggle Button */}
       <button
         onClick={() => setShowSidebar(!showSidebar)}
         className="absolute top-4 right-4 z-[1000] md:hidden bg-white p-2 rounded-lg shadow-lg"
@@ -59,11 +64,9 @@ const MapContent = () => {
         <MapPin className="h-6 w-6 text-gray-600" />
       </button>
 
-      {/* Sidebar - Mobile Drawer / Desktop Side Panel */}
-
       <div className="absolute md:relative w-fit top-[20%] h-fit backdrop-blur shadow-lg rounded-t-xl md:rounded-lg overflow-hidden bottom-0 text-black z-[1000] py-2">
         <div className="">
-          <div className="flex justify-between items-center ">
+          <div className="flex justify-between items-center">
             <button
               onClick={() => setShowSidebar(false)}
               className="md:hidden p-1"
@@ -95,7 +98,6 @@ const MapContent = () => {
         </div>
       </div>
 
-      {/* Map Overlay Info */}
       {selectedLocation && (
         <div className="absolute bottom-6 left-0 right-0 mx-auto w-[90%] md:w-[400px] z-[1000]">
           <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4">
@@ -127,7 +129,6 @@ const MapContent = () => {
         </div>
       )}
 
-      {/* Map */}
       <div className="absolute inset-0">
         <MapWithNoSSR
           locations={locations}
@@ -143,12 +144,8 @@ const MapComponent = ({
   locations,
   selectedLocation,
   mapRef,
-}: {
-  locations: LocationMarker[];
-  selectedLocation: string | null;
-  mapRef: React.RefObject<any>;
-}) => {
-  const { MapContainer, TileLayer, Marker, Popup } = require("react-leaflet");
+}: MapComponentProps) => {
+  const { MapContainer, TileLayer, Marker } = require("react-leaflet");
   const L = require("leaflet");
 
   useEffect(() => {
@@ -180,7 +177,7 @@ const MapComponent = ({
     });
 
     const originalOnAdd = L.Marker.prototype.onAdd;
-    L.Marker.prototype.onAdd = function (map) {
+    L.Marker.prototype.onAdd = function (map: any) {
       const pos = this.getLatLng();
       const icon = icons.get(`${pos.lat},${pos.lng}`);
       if (icon) {
@@ -190,10 +187,8 @@ const MapComponent = ({
     };
   }, [locations]);
 
-  const handleMapInit = (map) => {
-    if (mapRef) {
-      mapRef.current = map;
-    }
+  const handleMapInit = (map: LeafletMap) => {
+    mapRef.current = map;
   };
 
   return (

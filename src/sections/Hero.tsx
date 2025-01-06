@@ -15,9 +15,9 @@ export const HeroSection = () => {
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-[#8892b0] mb-6 sm:mb-8">
           I build what you envision
         </h1>
-        {/* <BackgroundGlow /> */}
+        <BackgroundGlow />
         <div className="relative max-w-xl lg:max-w-2xl">
-          <p className="text-[#8892b0] text-base sm:text-lg leading-relaxed duration-300">
+          <p className="text-secondary text-base sm:text-lg leading-relaxed duration-300">
             <span className="text-[#64ffda] font-semibold">Code Alchemist</span>{" "}
             and{" "}
             <span className="text-[#64ffda] font-semibold">
@@ -66,10 +66,10 @@ export const BackgroundGlow = () => {
 
       {/* Primary glow source - top right */}
       <div
-        className="absolute -top-[40%] left-0 w-[70%] h-[70%] rounded-full"
+        className="absolute top-[15%] left-0 w-[70%] h-[70%] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(100,255,218,0.08) 0%, rgba(100,255,218,0.02) 45%, rgba(100,255,218,0) 70%)",
+            "radial-gradient(circle, rgb(72 189 160 / 20%) 0%, rgb(100 255 218 / 8%) 45%, rgb(100 255 218 / 0%) 70%)",
           filter: "blur(60px)",
         }}
       />

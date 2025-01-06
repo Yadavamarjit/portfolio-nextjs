@@ -18,6 +18,11 @@ const calistoga = Calistoga({
 export const metadata: Metadata = {
   title: "Yadav Amarjit",
   description: "Empowering Ideas into Interactive Digital Realities",
+  openGraph: {
+    title: "Yadav Amarjit",
+    description: "Empowering Ideas into Interactive Digital Realities",
+    images: ["https://i.ibb.co/JBZBPRK/Screenshot-2025-01-07-012552.png"],
+  },
 };
 
 export default function RootLayout({

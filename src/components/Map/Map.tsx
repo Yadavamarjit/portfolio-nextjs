@@ -153,6 +153,57 @@ const MapComponent = ({
 }: MapComponentProps) => {
   const { MapContainer, TileLayer, Marker } = require("react-leaflet");
   const L = require("leaflet");
+  const [scrollZoomEnabled, setScrollZoomEnabled] = useState(false);
+  const componentRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+            timeoutRef.current = setTimeout(() => {
+              setScrollZoomEnabled(true);
+            }, 3000);
+          } else {
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+            setScrollZoomEnabled(false);
+          }
+        });
+      },
+      {
+        threshold: 0.7,
+        rootMargin: "0px 0px -30% 0px",
+      }
+    );
+
+    if (componentRef.current) {
+      observer.observe(componentRef.current);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      observer.disconnect();
+    };
+  }, []);
+
+  // New effect to handle zoom state changes
+  useEffect(() => {
+    if (mapRef.current) {
+      if (scrollZoomEnabled) {
+        mapRef.current.scrollWheelZoom.enable();
+      } else {
+        mapRef.current.scrollWheelZoom.disable();
+      }
+    }
+  }, [scrollZoomEnabled]);
 
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
@@ -195,34 +246,38 @@ const MapComponent = ({
 
   const handleMapInit = (map: LeafletMap) => {
     mapRef.current = map;
+    // Initially disabling scroll zoom
+    map?.scrollWheelZoom?.disable();
   };
 
   return (
-    <MapContainer
-      center={[28.51999999999999, 77.04745143338317]}
-      zoom={11}
-      scrollWheelZoom={true}
-      className="h-96 w-full"
-      ref={handleMapInit}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {locations.map((location, index) => (
-        <Marker
-          key={index}
-          position={location.position}
-          eventHandlers={{
-            click: () => {
-              if (mapRef.current) {
-                mapRef.current.setView(location.position, 12);
-              }
-            },
-          }}
+    <div ref={componentRef}>
+      <MapContainer
+        center={[28.51999999999999, 77.04745143338317]}
+        zoom={11}
+        scrollWheelZoom={false}
+        className="h-96 w-full"
+        ref={handleMapInit}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      ))}
-    </MapContainer>
+        {locations.map((location, index) => (
+          <Marker
+            key={index}
+            position={location.position}
+            eventHandlers={{
+              click: () => {
+                if (mapRef.current) {
+                  mapRef.current.setView(location.position, 12);
+                }
+              },
+            }}
+          />
+        ))}
+      </MapContainer>
+    </div>
   );
 };
 

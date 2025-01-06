@@ -19,7 +19,7 @@ import Map from "@/components/Map/Map";
 
 const hobbies = [
   { title: "Gaming", icon: "🎮", top: "25%", left: "50%" },
-  { title: "Reading", icon: "📚", top: "5%", left: "10%" },
+  { title: "Treaking", icon: "🚵", top: "5%", left: "10%" },
   { title: "Gym", icon: "🏋️", top: "25%", left: "5%" },
   { title: "Music", icon: "🎧", top: "45%", left: "3%" },
   { title: "Hiking", icon: "🥾", top: "50%", left: "50%" },

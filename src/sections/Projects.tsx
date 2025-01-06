@@ -83,7 +83,7 @@ const projectsData = [
 
 export const ProjectsSection = () => {
   return (
-    <section className="sec-container" id="projects">
+    <section className="sec-container relative" id="projects">
       <SectionTitle title="Some Things I've Built" />
       <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
         {projectsData.map((project, index) => (
@@ -96,13 +96,13 @@ export const ProjectsSection = () => {
 
 export const ProjectCard = ({ project }: { project: any }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const limit = 25;
+  const limit = 20;
   const words = project.description.split(" ");
-  const firstFiftyWords = words.slice(0, limit).join(" ");
+  const firstTwentyWords = words.slice(0, limit).join(" ");
   const hasMoreContent = words.length > limit;
 
   return (
-    <div className="rounded-lg backdrop-blur transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
+    <div className="rounded-lg sticky top-20 backdrop-blur-3xl transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
       <img
         src={project.img}
         alt={project.projectName}
@@ -112,7 +112,7 @@ export const ProjectCard = ({ project }: { project: any }) => {
         <h3 className="text-xl font-bold text-accent">{project.projectName}</h3>
         <div className="text-sm text-secondary mt-3">
           <p>
-            {isExpanded ? project.description : firstFiftyWords}
+            {isExpanded ? project.description : firstTwentyWords}
             {hasMoreContent && !isExpanded && "..."}
           </p>
           {hasMoreContent && (

@@ -39,7 +39,7 @@ const MapContent = () => {
       address: "Gurugram, India",
     },
     {
-      name: "Claude",
+      name: "You",
       position: [52.52, 13.405],
       color: "bg-green-400",
       address: "Berlin, Germany",
@@ -64,7 +64,7 @@ const MapContent = () => {
         <MapPin className="h-6 w-6 text-gray-600" />
       </button>
 
-      <div className="absolute md:relative w-fit top-[20%] h-fit backdrop-blur shadow-lg rounded-t-xl md:rounded-lg overflow-hidden bottom-0 text-black z-[1000] py-2">
+      <div className="absolute md:relative w-fit top-[20%] h-fit backdrop-blur bg-[#0a192f]  shadow-lg rounded-t-xl md:rounded-lg overflow-hidden bottom-0 text-black z-[1000] py-2">
         <div className="">
           <div className="flex justify-between items-center">
             <button
@@ -78,20 +78,26 @@ const MapContent = () => {
             {locations.map((location, index) => (
               <div
                 key={index}
-                className={`px-3 rounded-lg cursor-pointer transition-all duration-200 ${
-                  selectedLocation === location.name
-                    ? "bg-accent/30 shadow-sm"
-                    : "hover:bg-accent/10"
-                }`}
+                className={`px-3 rounded-lg cursor-pointer transition-all duration-200 `}
                 onClick={() => handleLocationClick(location.name)}
               >
-                <div className="flex items-center gap-2">
-                  <div className={`w-3 h-3 rounded-full ${location.color}`} />
-                  <span className="font-medium text-gray-700">
+                <div className="flex items-center gap-2 relative px-3">
+                  <div className="absolute  -left-1 top-1/2 size-3 rounded-full after:content-[''] after:absolute after:inset-0 after:outline after:outline-2 after:-outline-offset-2 after:rounded-full after:outline-white/40">
+                    <div
+                      className={`absolute inset-0 rounded-full ${location.color} -z-20 animate-ping [animation-duration:2s]`}
+                    ></div>
+                    <div
+                      className={`absolute inset-0 rounded-full ${location.color} -z-10`}
+                    ></div>
+                  </div>
+
+                  <span className="font-medium text-gray-700 ml-1 text-xs tracking-widest">
                     {location.name}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 mt-1">{location.address}</p>
+                <p className="text-[10px] text-gray-600  ml-4">
+                  {location.address}
+                </p>
               </div>
             ))}
           </div>

@@ -10,8 +10,12 @@ import memoji from "@/assets/images/memoji-smile.png";
 import CardHeader from "@/components/CardHeader/CardHeader";
 import { ToolBoxItems } from "@/components/ToolBoxItems/ToolBoxItems";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
+import AchievementsShowcase from "@/components/Achievements/Achievements";
+// import MapWithPin from "@/components/Map/Map";
+import dynamic from "next/dynamic";
+import Map from "@/components/Map/Map";
 
 const hobbies = [
   { title: "Gaming", icon: "🎮", top: "25%", left: "50%" },
@@ -27,28 +31,36 @@ const hobbies = [
 ];
 
 export const AboutSection = () => {
+  // const MapWithPin = dynamic(() => import("@/components/Map/Map"), {
+  //   ssr: false,
+  // });
+  // const MapWithPin = useMemo(
+  //   () =>
+  //     dynamic(() => import("@/components/Map/Map"), {
+  //       loading: () => <p>A map is loading</p>,
+  //       ssr: false,
+  //     }),
+  //   []
+  // );
   const dragConstraintRef = useRef(null);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    setLoader(true);
+  }, []);
   return (
-    <div className="sec-container">
-      <div className="container mt-20">
+    <div className="sec-container px-5">
+      <div className="container">
         <SectionTitle title="About Me" />
-        <div className="mt-20 flex flex-col gap-6">
-          <div className="md:grid md:grid-cols-5 md:gap-8">
-            <Card className="h-[320px] col-span-2">
-              <CardHeader
-                title="My Reads"
-                description="Explore the book shaping my perspective"
-              />
-              <div className="mx-auto mt-8 w-40">
-                <Image src={bookImage} alt="book" />
-              </div>
-            </Card>
-            <Card className="h-[320px] px-0 col-span-3">
+        <AchievementsShowcase />
+        <div className="mt-10 flex flex-col gap-6">
+          <div className="grid md:grid-cols-5 md:gap-8 gap-y-6">
+            {" "}
+            <Card className="h-[320px] p-0 relative col-span-3">
               <div>
                 <CardHeader
+                  className="p-6"
                   title="My Tools"
                   description="Explore the book shaping my perspective"
-                  className="px-6"
                 />
               </div>
               <div className="flex flex-col gap-8 mt-6">
@@ -56,9 +68,7 @@ export const AboutSection = () => {
                 <ToolBoxItems reverse={true} />
               </div>
             </Card>
-          </div>
-          <div className="md:grid md:grid-cols-5 md:gap-8">
-            <Card className="h-[320px] p-0 flex flex-col col-span-3">
+            <Card className="h-[320px] p-0 flex flex-col col-span-2 ">
               <div>
                 <CardHeader
                   className="p-6"
@@ -83,8 +93,7 @@ export const AboutSection = () => {
                 ))}
               </div>
             </Card>
-
-            <Card className="h-[320px] p-0 relative col-span-2">
+            {/* <Card className="h-[320px] p-0 relative col-span-2">
               <Image
                 className="h-full w-full object-cover"
                 src={mapImage}
@@ -95,8 +104,11 @@ export const AboutSection = () => {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10"></div>
                 <Image className="size-20" src={memoji} alt="map" />
               </div>
-            </Card>
+            </Card> */}
           </div>
+          <Card className="h-96 p-0">
+            <Map />
+          </Card>
         </div>
       </div>
     </div>

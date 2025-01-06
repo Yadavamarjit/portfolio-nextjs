@@ -68,7 +68,7 @@ const Experiences = () => {
   );
 
   return (
-    <section className="sec-container py-20">
+    <section className="sec-container pb-10 lg:pb-20">
       <SectionTitle title="Where I've Worked" />
       <div className="flex flex-col lg:flex-row gap-8 mt-10  relative">
         {/* Company tabs */}

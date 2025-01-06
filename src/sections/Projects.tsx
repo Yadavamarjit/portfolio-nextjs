@@ -1,4 +1,6 @@
+"use client";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
+import { useState } from "react";
 
 export const getRandomColor = () => {
   let previousColors: any = [];
@@ -40,6 +42,14 @@ export const getRandomColor = () => {
 };
 const projectsData = [
   {
+    projectName: "AskAmar",
+    description:
+      "AskAmar is an intelligent chatbot designed to provide accurate and personalized answers about my professional journey, skills, and projects. It uses advanced AI capabilities to understand queries, retrieve relevant information, and offer a seamless, conversational experience for exploring my expertise and career insights.",
+    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/ai.gif?alt=media&token=78359f6b-da87-47fa-9de4-ed89ed0f644f",
+    techs: ["NextJS", "MongoDB", "LLM", "PineconeDB", "Javascript"],
+    link: "https://fruits-catcher.netlify.app/",
+  },
+  {
     projectName: "Fruit Catcher",
     description:
       "In this engaging fruit catcher game, players strive to catch falling fruits while avoiding obstacles. The game features a dynamic leaderboard to track top scores, and various in-game power-ups that enhance the gameplay experience. With its intuitive mechanics and exciting challenges, players are rewarded for their skills and quick reflexes as they compete for the highest score.",
@@ -73,49 +83,67 @@ const projectsData = [
 
 export const ProjectsSection = () => {
   return (
-    <section className="sec-container">
+    <section className="sec-container" id="projects">
       <SectionTitle title="Some Things I've Built" />
       <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
         {projectsData.map((project, index) => (
-          <div
-            key={index}
-            className="rounded-lg  backdrop-blur transition-shadow  border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl"
-          >
-            <img
-              src={project.img}
-              alt={project.projectName}
-              className="w-full h-48 object-cover rounded-t-lg"
-            />
-            <div className="p-5">
-              <h3 className="text-xl font-bold text-accent">
-                {project.projectName}
-              </h3>
-              <p className="text-sm text-secondary mt-3">
-                {project.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.techs.map((tag) => (
-                  <p key={tag} className={`text-[14px] ${getRandomColor()()}`}>
-                    #{tag}
-                  </p>
-                ))}
-              </div>
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full "
-                >
-                  <button className="w-full mt-4 group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300">
-                    View Project
-                  </button>
-                </a>
-              )}
-            </div>
-          </div>
+          <ProjectCard key={index} project={project} />
         ))}
       </div>
     </section>
+  );
+};
+
+export const ProjectCard = ({ project }: { project: any }) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const limit = 25;
+  const words = project.description.split(" ");
+  const firstFiftyWords = words.slice(0, limit).join(" ");
+  const hasMoreContent = words.length > limit;
+
+  return (
+    <div className="rounded-lg backdrop-blur transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
+      <img
+        src={project.img}
+        alt={project.projectName}
+        className="w-full h-48 object-cover rounded-t-lg"
+      />
+      <div className="p-5">
+        <h3 className="text-xl font-bold text-accent">{project.projectName}</h3>
+        <div className="text-sm text-secondary mt-3">
+          <p>
+            {isExpanded ? project.description : firstFiftyWords}
+            {hasMoreContent && !isExpanded && "..."}
+          </p>
+          {hasMoreContent && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-accent hover:text-accent/80 mt-2 text-sm font-medium"
+            >
+              {isExpanded ? "See Less" : "See More"}
+            </button>
+          )}
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.techs.map((tag: string) => (
+            <p key={tag} className={`text-[14px] ${getRandomColor()()}`}>
+              #{tag}
+            </p>
+          ))}
+        </div>
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full"
+          >
+            <button className="w-full mt-4 group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300">
+              View Project
+            </button>
+          </a>
+        )}
+      </div>
+    </div>
   );
 };

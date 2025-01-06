@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Calistoga } from "next/font/google";
 import { twMerge } from "tailwind-merge";
+import "leaflet/dist/leaflet.css";
 
 const inter = Inter({
   subsets: ["latin"],

@@ -2,7 +2,7 @@
 
 export const HeroSection = () => {
   return (
-    <div className="sec-container min-h-screen flex flex-col justify-center">
+    <div className="sec-container min-h-screen flex flex-col justify-center relative">
       <div className="max-w-7xl mx-auto w-full">
         <p className="text-[#64ffda] mb-4 text-base sm:text-lg tracking-widest font-mono">
           Hi, my name is
@@ -15,7 +15,7 @@ export const HeroSection = () => {
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-[#8892b0] mb-6 sm:mb-8">
           I build what you envision
         </h1>
-
+        {/* <BackgroundGlow /> */}
         <div className="relative max-w-xl lg:max-w-2xl">
           <p className="text-[#8892b0] text-base sm:text-lg leading-relaxed duration-300">
             <span className="text-[#64ffda] font-semibold">Code Alchemist</span>{" "}
@@ -54,6 +54,54 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const BackgroundGlow = () => {
+  return (
+    <div className="absolute inset-0 w-full h-full overflow-hidden -z-10">
+      {/* Main background color */}
+      <div className="absolute inset-0 bg-[#0a192f]" />
+
+      {/* Primary glow source - top right */}
+      <div
+        className="absolute -top-[40%] left-0 w-[70%] h-[70%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(100,255,218,0.08) 0%, rgba(100,255,218,0.02) 45%, rgba(100,255,218,0) 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      {/* Secondary glow source - center left */}
+      {/* <div
+        className="absolute top-[30%] -left-[10%] w-[50%] h-[50%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(100,255,218,0.05) 0%, rgba(100,255,218,0.02) 45%, rgba(100,255,218,0) 70%)",
+          filter: "blur(45px)",
+        }}
+      /> */}
+
+      {/* Accent glow - bottom */}
+      {/* <div
+        className="absolute -bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(100,255,218,0.06) 0%, rgba(100,255,218,0.02) 45%, rgba(100,255,218,0) 70%)",
+          filter: "blur(50px)",
+        }}
+      /> */}
+
+      {/* Subtle overlay for depth */}
+      {/* <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(10,25,47,0.2) 100%)",
+        }}
+      /> */}
     </div>
   );
 };

@@ -20,9 +20,9 @@ export default function Home() {
         <ProjectsSection />
         <TapeSection />
         <AboutSection />
-        <ContactSection />
-        {/* <Footer /> */}
-        <StarsCanvas />
+        {/* <ContactSection /> */}
+        <Footer />
+        {/* <StarsCanvas /> */}
       </div>
       <div className="fixed lg:bottom-10 z-50 lg:right-10 bottom-5 right-6">
         <AIAssistantAnimation size={100} />

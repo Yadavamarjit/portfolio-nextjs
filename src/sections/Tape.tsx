@@ -34,7 +34,7 @@ export const TapeSection = () => {
   );
 
   return (
-    <div className="py-16 overflow-x-clip">
+    <div className="py-24 overflow-x-clip">
       <div className="bg-gradient-to-r -rotate-3 -mx-1 from-emerald-300 to-sky-400 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div className="relative flex overflow-hidden">
           {/* First scroll container */}

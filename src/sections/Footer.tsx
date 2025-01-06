@@ -1,10 +1,8 @@
 export const Footer = () => {
   return (
     <footer>
-      <div className="container">
-        <div>
-          <div>&copy; 2024. All rights reserved.</div>
-        </div>
+      <div className=" h-40 relative">
+        {/* <div className="h-2 w-full shadow-xl shadow-white absolute bg-red-100 top-2"></div> */}
       </div>
     </footer>
   );

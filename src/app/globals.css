@@ -23,3 +23,19 @@
     @apply lg:max-w-5xl;
   }
 }
+
+.custom-marker-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-pin-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}

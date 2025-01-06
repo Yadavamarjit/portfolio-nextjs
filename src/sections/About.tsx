@@ -20,12 +20,12 @@ import Map from "@/components/Map/Map";
 const hobbies = [
   { title: "Gaming", icon: "🎮", top: "25%", left: "50%" },
   { title: "Reading", icon: "📚", top: "5%", left: "10%" },
-  { title: "Gym", icon: "🏋️", top: "10%", left: "75%" },
+  { title: "Gym", icon: "🏋️", top: "25%", left: "5%" },
   { title: "Music", icon: "🎧", top: "45%", left: "3%" },
   { title: "Hiking", icon: "🥾", top: "50%", left: "50%" },
   { title: "Traveling", icon: "✈️", top: "65%", left: "1%" },
   { title: "Puzzles", icon: "🧩", top: "70%", left: "35%" },
-  { title: "Movies", icon: "🎬", top: "25%", left: "25%" },
+  { title: "Movies", icon: "🎬", top: "35%", left: "25%" },
   { title: "MMA", icon: "🥊", top: "70%", left: "65%" },
   { title: "Gardening", icon: "🌱", top: "0%", left: "45%" },
 ];

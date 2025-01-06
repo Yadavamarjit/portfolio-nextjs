@@ -50,7 +50,7 @@ const MapContent = () => {
     setSelectedLocation(locationName);
     const location = locations.find((loc) => loc.name === locationName);
     if (location && mapInstanceRef.current) {
-      mapInstanceRef.current.setView(location.position, 12);
+      mapInstanceRef.current.setView(location.position, 11);
     }
     setShowSidebar(false);
   };
@@ -64,7 +64,7 @@ const MapContent = () => {
         <MapPin className="h-6 w-6 text-gray-600" />
       </button>
 
-      <div className="absolute md:relative w-fit top-[20%] h-fit backdrop-blur bg-[#0a192f]  shadow-lg rounded-t-xl md:rounded-lg overflow-hidden bottom-0 text-black z-[1000] py-2">
+      <div className="absolute md:relative w-fit top-[25%] h-fit  overflow-hidden bottom-0  z-[1000] py-2">
         <div className="">
           <div className="flex justify-between items-center">
             <button
@@ -78,7 +78,7 @@ const MapContent = () => {
             {locations.map((location, index) => (
               <div
                 key={index}
-                className={`px-3 rounded-lg cursor-pointer transition-all duration-200 `}
+                className={`px-3  cursor-pointer transition-all duration-200 backdrop-blur rounded-r-md py-2 hover:bg-violet-900/10 `}
                 onClick={() => handleLocationClick(location.name)}
               >
                 <div className="flex items-center gap-2 relative px-3">
@@ -162,7 +162,7 @@ const MapComponent = ({
     ) => {
       const customPin = document.createElement("div");
       customPin.innerHTML = `
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-5 rounded-full after:content-[''] after:absolute after:inset-0 after:outline after:outline-2 after:-outline-offset-2 after:rounded-full after:outline-white/40">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-6 rounded-full after:content-[''] after:absolute after:inset-0 after:outline after:outline-2 after:-outline-offset-2 after:rounded-full after:outline-white/40">
           <div class="absolute inset-0 rounded-full ${color} -z-20 animate-ping [animation-duration:2s]"></div>
           <div class="absolute inset-0 rounded-full ${color} -z-10"></div>
         </div>
@@ -199,10 +199,10 @@ const MapComponent = ({
 
   return (
     <MapContainer
-      center={[40, 45]}
-      zoom={3}
+      center={[28.51999999999999, 77.04745143338317]}
+      zoom={11}
       scrollWheelZoom={true}
-      className="h-full w-full"
+      className="h-96 w-full"
       ref={handleMapInit}
     >
       <TileLayer

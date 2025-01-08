@@ -9,8 +9,10 @@ import { Header } from "@/sections/Header";
 import { HeroSection } from "@/sections/Hero";
 import { ProjectsSection } from "@/sections/Projects";
 import { TapeSection } from "@/sections/Tape";
-
-export default function Home() {
+// import { onBoardUSer } from "@/utils/userLocation";
+import { cookies } from "next/headers";
+export default async function Home() {
+  // onBoardUser();
   return (
     <>
       <div className="relative z-0">

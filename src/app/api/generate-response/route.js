@@ -1,5 +1,6 @@
 // app/api/posts/route.js
 
+import { cookies } from "next/headers";
 import { searchEmbeddings } from "../../../embedding";
 import { getGPT4Response } from "../../../GPT/gpt";
 
@@ -28,7 +29,7 @@ export async function POST(req) {
         Connection: "keep-alive",
       },
     });
-
+    let completeMessage = "";
     const gptResponse = await getGPT4Response(
       userPrompt,
       searchResult[0].content
@@ -42,9 +43,16 @@ export async function POST(req) {
           if (content) {
             // Write the chunk to the stream
             // console.log("Streaming chunk:", content);
+            completeMessage += content;
             await writer.write(encoder.encode(`data: ${content}`));
           }
         }
+        const cookiesStore = cookies();
+        console.log(
+          ">>>>>>>>>>>>>>>>>>",
+          completeMessage,
+          cookiesStore.get("userId").value
+        );
         // Close the stream
         await writer.close();
       } catch (error) {
@@ -52,7 +60,6 @@ export async function POST(req) {
         await writer.abort(error);
       }
     })();
-
     return streamResponse;
 
     // return new Response(gptResponse, {

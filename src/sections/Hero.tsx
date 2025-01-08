@@ -1,6 +1,12 @@
 "use client";
 
+import { onBoardUser } from "@/utils/userLocation";
+import { useEffect } from "react";
+
 export const HeroSection = () => {
+  useEffect(() => {
+    onBoardUser();
+  }, []);
   return (
     <div className="sec-container min-h-screen flex flex-col justify-center relative">
       <div className="max-w-7xl mx-auto w-full">

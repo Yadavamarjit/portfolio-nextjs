@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import { openaiApiKey } from "../config/envConfig";
-import { initPinecone } from "../DB";
+import { initPinecone } from "../DB/pincone";
 
 const professionalData = [
   {

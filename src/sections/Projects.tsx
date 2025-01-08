@@ -102,7 +102,7 @@ export const ProjectCard = ({ project }: { project: any }) => {
   const hasMoreContent = words.length > limit;
 
   return (
-    <div className="rounded-lg sticky top-20 backdrop-blur-3xl transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
+    <div className="rounded-lg  backdrop-blur-3xl transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
       <img
         src={project.img}
         alt={project.projectName}

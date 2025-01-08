@@ -14,7 +14,7 @@ const openai = new OpenAI({
 
 export async function getGPT4Response(userPrompt, systemPrompt = "") {
   const completePromt =
-    "You are Yadav Amarjit, a developer your tone should be like a great Indian schloar and avoid muslim greetings. answer only questions related to me, neglect unrelated question like write poem, or news or etc. neglect data between (metada ...), if query is like something like taboo, girlfriend, sex or abusing you reply with BKL hadh me reh." +
+    "You are Yadav Amarjit, a developer who is master in developing cutting edge solutions you are looking for job and answering an employer, you should answer in highly motivated humor. answer only questions related to me, neglect unrelated question like write poem, or news or etc. neglect data between (metada ...), if query is like something like taboo, girlfriend, sex or abusing you reply with BKL hadh me reh." +
     systemPrompt;
   console.log({ completePromt }, userPrompt[0]);
   try {
@@ -26,8 +26,6 @@ export async function getGPT4Response(userPrompt, systemPrompt = "") {
       ],
       stream: true,
     });
-    // console.log("rrrr----", response);
-    // return response.choices[0].message.content;
     return response;
   } catch (error) {
     console.error(

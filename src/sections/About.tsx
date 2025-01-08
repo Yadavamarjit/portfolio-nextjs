@@ -63,7 +63,7 @@ export const AboutSection = () => {
                   description="Explore the book shaping my perspective"
                 />
               </div>
-              <div className="flex flex-col gap-8 mt-6">
+              <div className="flex flex-col gap-8 mt-2">
                 <ToolBoxItems />
                 <ToolBoxItems reverse={true} />
               </div>

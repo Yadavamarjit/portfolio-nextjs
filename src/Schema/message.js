@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const MessageSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   timestamp: { type: Date, default: Date.now },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

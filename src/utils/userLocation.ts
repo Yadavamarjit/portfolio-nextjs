@@ -7,14 +7,8 @@ interface LocationResponse {
   longitude: number;
 }
 
-export const userLocation = async (): Promise<LocationResponse> => {
+export const userLocation = async () => {
   try {
-    // const response = await fetch("https://ipapi.co/json");
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}`);
-    // }
-    // const data: LocationResponse = await response.json();
-    // return data;
     try {
       const response = await axios.get("https://ipapi.co/json");
       const data: LocationResponse = response.data;
@@ -31,7 +25,7 @@ export const userLocation = async (): Promise<LocationResponse> => {
 interface OnBoardUserParams {
   userId: string;
 }
-function getCookie(cname) {
+function getCookie(cname: string) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(";");
@@ -52,12 +46,11 @@ export default getCookie;
 export const onBoardUser = async () => {
   try {
     const existingUserId = getCookie("userId");
-    console.log("userrrrrrrrrrrrr", existingUserId);
     let userId;
     if (!existingUserId) {
       const location = await userLocation();
       console.log("onboarded user", { userId, location });
-      const response = await axios.post("http://localhost:3002/api/users", {
+      const response = await axios.post("http://localhost:3001/api/users", {
         ...location,
       });
       console.log({ response: response.data });

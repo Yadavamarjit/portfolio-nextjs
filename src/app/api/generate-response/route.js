@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { searchEmbeddings } from "../../../embedding";
 import { getGPT4Response } from "../../../GPT/gpt";
+import { addMessage } from "@/utils/message";
 
 export async function POST(req) {
   const { userPrompt } = await req.json();
@@ -48,10 +49,10 @@ export async function POST(req) {
           }
         }
         const cookiesStore = cookies();
-        console.log(
-          ">>>>>>>>>>>>>>>>>>",
-          completeMessage,
-          cookiesStore.get("userId").value
+        addMessage(
+          cookiesStore.get("userId").value,
+          userPrompt,
+          completeMessage
         );
         // Close the stream
         await writer.close();

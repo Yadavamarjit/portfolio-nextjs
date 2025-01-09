@@ -5,6 +5,8 @@
 import user from "@/Schema/user";
 import connectToDatabase from "../../../DB/mongo";
 import message from "../../../Schema/message";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
@@ -32,17 +34,15 @@ export async function POST(req) {
 export async function GET(req) {
   try {
     await connectToDatabase();
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
+    const cookiesStore = cookies();
+    const userId = cookiesStore.get("userId").value;
 
     let messages;
     if (userId) {
       messages = await message.find({ userId }).populate("userId");
-    } else {
-      messages = await message.find().populate("userId");
     }
 
-    return new Response(JSON.stringify(messages), { status: 200 });
+    return NextResponse.json(messages, { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,

@@ -11,6 +11,18 @@ export async function POST(req) {
     cookies().set("userId", result._id.toString(), {
       path: "/", // Cookie is accessible across the entire site
     });
+    cookies().set("latitude", result.latitude.toString(), {
+      path: "/", // Cookie is accessible across the entire site
+    });
+    cookies().set("longitude", result.latitude.toString(), {
+      path: "/", // Cookie is accessible across the entire site
+    });
+    cookies().set("country_name", result.country_name.toString(), {
+      path: "/", // Cookie is accessible across the entire site
+    });
+    cookies().set("region", result.region.toString(), {
+      path: "/", // Cookie is accessible across the entire site
+    });
     const response = new Response(JSON.stringify(result), {
       status: 201,
     });

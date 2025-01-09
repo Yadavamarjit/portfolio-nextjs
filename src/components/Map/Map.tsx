@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { MapPin, X } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { Map as LeafletMap } from "leaflet";
+import getCookie from "@/utils/userLocation";
 
 interface LocationMarker {
   name: string;
@@ -40,9 +41,9 @@ const MapContent = () => {
     },
     {
       name: "You",
-      position: [52.52, 13.405],
+      position: [+getCookie("latitude"), +getCookie("longitude")],
       color: "bg-green-400",
-      address: "Berlin, Germany",
+      address: getCookie("region") + ", " + getCookie("country_name"),
     },
   ];
 

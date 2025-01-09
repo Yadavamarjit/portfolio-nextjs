@@ -8,7 +8,6 @@ export async function POST(req) {
     const userData = await req.json();
     const newUser = new user({ ...userData });
     const result = await newUser.save();
-    console.log(result);
     cookies().set("userId", result._id.toString(), {
       path: "/", // Cookie is accessible across the entire site
     });

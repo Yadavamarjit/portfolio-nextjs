@@ -50,9 +50,12 @@ export const onBoardUser = async () => {
     if (!existingUserId) {
       const location = await userLocation();
       console.log("onboarded user", { userId, location });
-      const response = await axios.post("http://localhost:3001/api/users", {
-        ...location,
-      });
+      const response = await axios.post(
+        "https://amarjit.vercel.app/api/users",
+        {
+          ...location,
+        }
+      );
       console.log({ response: response.data });
       //   cookieStore.set("userId", response.data._id);
     }

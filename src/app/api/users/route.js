@@ -14,7 +14,7 @@ export async function POST(req) {
     cookies().set("latitude", result.latitude.toString(), {
       path: "/", // Cookie is accessible across the entire site
     });
-    cookies().set("longitude", result.latitude.toString(), {
+    cookies().set("longitude", result.longitude.toString(), {
       path: "/", // Cookie is accessible across the entire site
     });
     cookies().set("country_name", result.country_name.toString(), {

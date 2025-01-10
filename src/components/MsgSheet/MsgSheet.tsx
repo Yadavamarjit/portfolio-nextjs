@@ -2,7 +2,7 @@
 import Sheet from "react-modal-sheet";
 import { useState } from "react";
 import { useMessages } from "@/context/MessageContext";
-import ChatInterface from "@/app/chat/page";
+import ChatInterface from "../ChatInterFace/ChatInterFace";
 
 export function MsgSheet() {
   const { toggleMsg, showMsg, messages } = useMessages();

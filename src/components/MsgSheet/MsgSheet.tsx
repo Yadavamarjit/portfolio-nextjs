@@ -14,7 +14,7 @@ export function MsgSheet() {
         isOpen={showMsg}
         onClose={toggleMsg}
       >
-        <Sheet.Container className="">
+        <Sheet.Container className="" style={{ left: "1" }}>
           <Sheet.Header />
           <Sheet.Content className="no-scrollbar px-3 pb-2">
             <ChatInterface messages={messages} />

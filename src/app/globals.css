@@ -22,6 +22,15 @@
   .container {
     @apply lg:max-w-5xl;
   }
+  @variants responsive {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
 }
 
 .custom-marker-icon {
@@ -38,4 +47,16 @@
   position: relative;
   width: 80px;
   height: 80px;
+}
+.react-modal-sheet-container {
+  background-color: #222f43 !important;
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+}
+@media (min-width: 800px) {
+  .react-modal-sheet-container {
+    width: 400px !important;
+    right: 20px !important;
+    /* left: none !important; */
+  }
 }

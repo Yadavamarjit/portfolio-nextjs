@@ -1,7 +1,9 @@
 "use client";
+import { useMessages } from "@/context/MessageContext";
 import React, { useEffect, useState } from "react";
 
 export const AIAssistantAnimation = ({ size = 192 }) => {
+  const { toggleMsg, showMsg } = useMessages();
   const [phase, setPhase] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
@@ -19,7 +21,7 @@ export const AIAssistantAnimation = ({ size = 192 }) => {
     <div
       className="relative cursor-pointer"
       style={{ width: size, height: size }}
-      onClick={() => setIsActive(!isActive)}
+      onClick={toggleMsg}
     >
       {/* Background glow */}
       <div

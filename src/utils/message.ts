@@ -15,11 +15,11 @@ export const addMessage = async (
     const messageResult = await newMessage.save();
 
     // Update user's messagesId array
-    await user.updateOne(
+    const userResult = await user.updateOne(
       { _id: userId },
       { $push: { messagesId: messageResult._id } }
     );
-    console.log("----- added msg", messageResult);
+    console.log("----- added msg", { messageResult }, { userResult });
     // return new Response(JSON.stringify(messageResult), { status: 201 });
   } catch (error) {
     console.log("-----error in adding msg", error);

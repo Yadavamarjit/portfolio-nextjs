@@ -1,6 +1,9 @@
+// import { AIAssistantAnimation } from "@/components/AIIcon/AIIcon";
 import { AIAssistantAnimation } from "@/components/AIIcon/AIIcon";
+import { MsgSheet } from "@/components/MsgSheet/MsgSheet";
 import SocialLinks from "@/components/SocialLinks/SocialLinks";
 import StarsCanvas from "@/components/StarCanvas/StarCanvas";
+import { MessageProvider } from "@/context/MessageContext";
 import { AboutSection } from "@/sections/About";
 import ContactSection from "@/sections/Contact";
 import Experiences from "@/sections/Experiences";
@@ -14,7 +17,7 @@ import { cookies } from "next/headers";
 export default async function Home() {
   // onBoardUser();
   return (
-    <>
+    <MessageProvider>
       <div className="relative z-0">
         <Header />
         <HeroSection />
@@ -30,6 +33,7 @@ export default async function Home() {
         <AIAssistantAnimation size={100} />
       </div>
       <SocialLinks />
-    </>
+      <MsgSheet />
+    </MessageProvider>
   );
 }

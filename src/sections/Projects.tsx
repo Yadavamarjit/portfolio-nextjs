@@ -111,7 +111,7 @@ export const ProjectCard = ({ project }: { project: any }) => {
       <div className="p-5">
         <h3 className="text-xl font-bold text-accent">{project.projectName}</h3>
         <div className="text-sm text-secondary mt-3">
-          <p>
+          <p className="text-pretty">
             {isExpanded ? project.description : firstTwentyWords}
             {hasMoreContent && !isExpanded && "..."}
           </p>

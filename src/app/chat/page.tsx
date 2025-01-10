@@ -2,15 +2,41 @@
 import { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import { m } from "framer-motion";
 
 interface Message {
-  role: "user" | "assistant";
-  content: string;
+  timestamp: Date;
+  userId: string;
+  userMessage?: string;
+  systemResponse?: string;
 }
 
-const ChatInterface = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+const ChatInterface = ({ messages: allMessages }: { messages: Message[] }) => {
+  // Transform initial messages into the format we need for the chat
+  const transformMessages = (dbMessages: Message[]) => {
+    const chatMessages = [];
+    for (const msg of dbMessages) {
+      if (msg.userMessage) {
+        chatMessages.push({
+          role: "user" as const,
+          content: msg.userMessage,
+          timestamp: msg.timestamp,
+        });
+      }
+      if (msg.systemResponse) {
+        chatMessages.push({
+          role: "assistant" as const,
+          content: msg.systemResponse,
+          timestamp: msg.timestamp,
+        });
+      }
+    }
+    return chatMessages.sort(
+      (a, b) =>
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    );
+  };
+
+  const [messages, setMessages] = useState(transformMessages(allMessages));
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -31,10 +57,16 @@ const ChatInterface = () => {
     setInput("");
     setIsLoading(true);
 
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", content: userMessage, timestamp: new Date() },
+    ]);
 
     try {
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "", timestamp: new Date() },
+      ]);
 
       const response = await fetch(
         window.location.origin + "/api/generate-response",
@@ -65,10 +97,8 @@ const ChatInterface = () => {
 
         setMessages((prev) => [
           ...prev.slice(0, prev.length - 1),
-          { role: "assistant", content: msg },
+          { role: "assistant", content: msg, timestamp: new Date() },
         ]);
-
-        console.log(parts, msg);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -77,6 +107,7 @@ const ChatInterface = () => {
         {
           role: "assistant",
           content: "Sorry, there was an error processing your request.",
+          timestamp: new Date(),
         },
       ]);
     } finally {
@@ -85,20 +116,20 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-3xl mx-auto p-4 text-black">
+    <>
       <div className="flex-1 overflow-y-auto mb-4 space-y-4">
         {messages.map((message, index) => (
           <div
             key={index}
             className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start"
+              message.role === "user" ? "justify-end" : "justify-start w-full"
             }`}
           >
             <div
-              className={`max-w-[80%] rounded-lg p-3 ${
+              className={`max-w-[80%] px-3 no-scrollbar py-1 ${
                 message.role === "user"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-gray-800 overflow-x-scroll "
+                  ? "bg-[#47477f4a] rounded-3xl text-white"
+                  : "text-white overflow-x-scroll"
               }`}
             >
               {message.role === "assistant" ? (
@@ -124,18 +155,18 @@ const ChatInterface = () => {
             setInput(e.target.value)
           }
           placeholder="Type your message..."
-          className="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          className="flex-1 py-2 px-4 border text-white border-gray-400 focus:outline-none bg-[#3838674a] focus:border-accent/50 rounded-3xl"
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-blue-300 transition-colors"
+          className="bg-[#47477f4a] text-gray-300 p-2 rounded hover:bg-[#3838674a] disabled:bg-[#3333464a] transition-colors"
         >
           <Send size={20} />
         </button>
       </form>
-    </div>
+    </>
   );
 };
 

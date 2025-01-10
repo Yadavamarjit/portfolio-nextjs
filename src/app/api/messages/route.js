@@ -18,13 +18,14 @@ export async function POST(req) {
     const messageResult = await newMessage.save();
 
     // Update user's messagesId array
-    await user.updateOne(
+    const userResult = await user.updateOne(
       { _id: userId },
       { $push: { messagesId: messageResult._id } }
     );
-
+    console.log({ userResult, userId });
     return new Response(JSON.stringify(messageResult), { status: 201 });
   } catch (error) {
+    console.log("userResult", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
     });

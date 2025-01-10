@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Send } from "lucide-react";
+import { Send, Volume2, VolumeX } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 interface Message {
@@ -39,7 +39,52 @@ const ChatInterface = ({ messages: allMessages }: { messages: Message[] }) => {
   const [messages, setMessages] = useState(transformMessages(allMessages));
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const speechSynthesis =
+    typeof window !== "undefined" ? window.speechSynthesis : null;
+
+  const cleanMarkdown = (text: string) => {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, "$1") // Remove bold
+      .replace(/\*(.*?)\*/g, "$1") // Remove italic
+      .replace(/\[(.*?)\]\(.*?\)/g, "$1") // Remove links but keep text
+      .replace(/`(.*?)`/g, "$1") // Remove inline code
+      .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+      .replace(/#{1,6}\s(.*)/g, "$1") // Remove headers
+      .replace(/\n\s*[-*+]\s/g, ". ") // Convert list items to sentences
+      .replace(/\n/g, " ") // Replace newlines with spaces
+      .trim();
+  };
+
+  const speak = (text: string) => {
+    if (!speechSynthesis) return;
+
+    if (isSpeaking) {
+      speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    const cleanedText = cleanMarkdown(text);
+    const utterance = new SpeechSynthesisUtterance(cleanedText);
+    utterance.voice = speechSynthesis.getVoices()[0];
+    utterance.pitch = 0.8; // Normal pitch is 1. Adjust slightly for natural variation (0.8–1.2 works well)
+    utterance.rate = 1.2;
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    setIsSpeaking(true);
+    speechSynthesis.speak(utterance);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (speechSynthesis) {
+        speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -126,20 +171,34 @@ const ChatInterface = ({ messages: allMessages }: { messages: Message[] }) => {
             }`}
           >
             <div
-              className={`max-w-[80%] px-3 no-scrollbar py-1 ${
+              className={`px-3 no-scrollbar rounded-3xl py-1 flex items-start gap-2 ${
                 message.role === "user"
-                  ? "bg-[#47477f4a] rounded-3xl text-white"
-                  : "text-white overflow-x-scroll"
+                  ? "bg-[#47477f4a] text-white max-w-[80%]"
+                  : "text-white max-w-[95%] py-2 overflow-x-scroll bg-[#5555782e]"
               }`}
             >
-              {message.role === "assistant" ? (
-                <ReactMarkdown className="prose prose-sm max-w-none prose-pre:bg-gray-700 prose-pre:text-white prose-pre:p-2 prose-pre:rounded">
-                  {message.content}
-                </ReactMarkdown>
-              ) : (
-                <div className="whitespace-pre-wrap break-words">
-                  {message.content}
-                </div>
+              <div className="flex-1">
+                {message.role === "assistant" ? (
+                  <ReactMarkdown className="prose prose-sm max-w-none prose-pre:bg-gray-700 prose-pre:text-white prose-pre:p-2 prose-pre:rounded">
+                    {message.content}
+                  </ReactMarkdown>
+                ) : (
+                  <div className="whitespace-pre-wrap break-words">
+                    {message.content}
+                  </div>
+                )}
+              </div>
+              {message.role === "assistant" && (
+                <button
+                  onClick={() => speak(message.content)}
+                  className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"
+                >
+                  {isSpeaking ? (
+                    <VolumeX size={16} className="text-gray-300" />
+                  ) : (
+                    <Volume2 size={16} className="text-gray-300" />
+                  )}
+                </button>
               )}
             </div>
           </div>

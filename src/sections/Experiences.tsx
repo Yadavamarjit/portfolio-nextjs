@@ -77,7 +77,7 @@ const Experiences = () => {
             <button
               key={exp.company}
               onClick={() => setActiveCompany(exp.company)}
-              className={`lg:p-4 py-2 lg:text-base min-w-[140px] lg:text-left text-center lg:rounded-lg transition-all duration-300 hover:text-accent/80 hover:bg-accent/5 hover:backdrop-blur ${
+              className={`lg:p-4 py-2 sm-text min-w-[140px] lg:text-left text-center lg:rounded-lg transition-all duration-300 hover:text-accent/80 hover:bg-accent/5 hover:backdrop-blur ${
                 activeCompany === exp.company
                   ? "border-b-2 border-b-accent/40 lg:border-accent/40 lg:border  text-accent backdrop-blur "
                   : " text-slate-400 border-transparent"
@@ -90,14 +90,14 @@ const Experiences = () => {
 
         {/* Experience details */}
         {activeExperience && (
-          <div className="flex-1 backdrop-blur lg:p-4 rounded-lg border-accent/40 lg:border">
-            <h2 className="text-2xl font-semibold text-slate-200">
+          <div className="flex-1 backdrop-blur lg:p-4 rounded-lg border-accent/40 lg:border 2xl:px-10 2xl:py-6">
+            <h2 className="text-2xl font-semibold text-slate-200 2xl:text-4xl">
               {activeExperience.role}{" "}
               <span className="text-emerald-400">
                 @ {activeExperience.company}
               </span>
             </h2>
-            <p className="text-slate-400 font-medium text-sm mt-2 tracking-widest">
+            <p className="text-slate-400 font-medium text-sm mt-2 tracking-widest 2xl:text-lg">
               {activeExperience.period}
             </p>
 
@@ -105,10 +105,10 @@ const Experiences = () => {
             <div className="mt-6 space-y-8">
               {activeExperience.projects.map((project, index) => (
                 <div key={index} className="space-y-4">
-                  <h3 className="text-lg font-medium text-slate-200">
+                  <h3 className="text-lg font-medium text-slate-200 2xl:text-2xl">
                     {project.title}
                   </h3>
-                  <ul className="space-y-4">
+                  <ul className="space-y-4 sm-text text-pretty">
                     {project.points.map((point, pointIndex) => (
                       <li
                         key={pointIndex}

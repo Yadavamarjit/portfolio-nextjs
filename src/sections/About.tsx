@@ -68,7 +68,7 @@ export const AboutSection = () => {
                 <ToolBoxItems reverse={true} />
               </div>
             </Card>
-            <Card className="h-[320px] p-0 flex flex-col col-span-2 ">
+            <Card className="h-[320px] p-0 flex flex-col col-span-3 lg:col-span-2 ">
               <div>
                 <CardHeader
                   className="p-6"

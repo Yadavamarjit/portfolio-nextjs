@@ -24,12 +24,14 @@ const CertificatesShowcase = () => {
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6">
-      <div className="mb-12">
-        <h2 className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+    <div className="w-full max-w-7xl mx-auto ">
+      <div className="mb-12 mt-6">
+        <h2 className="title font-bold text-secondary bg-clip-text text-center lg:text-left">
           Achievements & Certifications
         </h2>
-        <p className="text-gray-400 mt-2">Milestones in my tech journey</p>
+        <p className="text-gray-400 mt-2 text-center lg:text-left font-medium">
+          Milestones in my tech journey
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

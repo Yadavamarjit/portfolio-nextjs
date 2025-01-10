@@ -8,9 +8,9 @@ export const HeroSection = () => {
     onBoardUser();
   }, []);
   return (
-    <div className="sec-container min-h-screen flex flex-col justify-center relative">
+    <div className="sec-container flex flex-col  relative">
       <div className="max-w-7xl mx-auto w-full">
-        <p className="text-[#64ffda] mb-4 text-base sm:text-lg tracking-widest font-mono">
+        <p className="text-[#64ffda] mb-4 sm-text tracking-widest font-mono">
           Hi, my name is
         </p>
 
@@ -23,7 +23,7 @@ export const HeroSection = () => {
         </h1>
         <BackgroundGlow />
         <div className="relative max-w-xl lg:max-w-2xl">
-          <p className="text-secondary text-base sm:text-lg leading-relaxed duration-300">
+          <p className="text-secondary sm-text leading-relaxed duration-300">
             <span className="text-[#64ffda] font-semibold">Code Alchemist</span>{" "}
             and{" "}
             <span className="text-[#64ffda] font-semibold">
@@ -54,7 +54,7 @@ export const HeroSection = () => {
           </p>
 
           <div className="mt-8 sm:mt-10 lg:mt-12">
-            <button className="w-full sm:w-auto group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300">
+            <button className="w-full sm:w-auto group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300 sm-text">
               Let&apos;s create something extraordinary!
             </button>
           </div>

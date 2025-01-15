@@ -5,7 +5,7 @@ import { useMessages } from "@/context/MessageContext";
 import ChatInterface from "../ChatInterFace/ChatInterFace";
 
 export function MsgSheet() {
-  const { toggleMsg, showMsg, messages } = useMessages();
+  const { toggleMsg, showMsg, messages, addMessage } = useMessages();
 
   return (
     <>
@@ -17,7 +17,7 @@ export function MsgSheet() {
         <Sheet.Container className="" style={{ left: "1" }}>
           <Sheet.Header />
           <Sheet.Content className="no-scrollbar px-3 pb-2">
-            <ChatInterface messages={messages} />
+            <ChatInterface messages={messages} addMessage={addMessage} />
           </Sheet.Content>
         </Sheet.Container>
         <Sheet.Backdrop />

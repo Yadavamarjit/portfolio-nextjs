@@ -7,6 +7,7 @@ import React, {
   useEffect,
 } from "react";
 import axios from "axios";
+import { addMessageType } from "@/types/messageTypes";
 
 // Define types for your data
 interface Message {
@@ -18,11 +19,11 @@ interface Message {
 
 // Define context type
 interface MessageContextType {
-  messages: Message[];
+  messages: addMessageType[];
   loading: boolean;
   error: string | null;
   fetchMessages: () => Promise<void>;
-  addMessage: (message: Omit<Message, "id">) => Promise<void>;
+  addMessage: (message: addMessageType[]) => void;
   showMsg: boolean;
   toggleMsg: () => void;
 }
@@ -35,10 +36,33 @@ interface MessageProviderProps {
   children: ReactNode;
 }
 
+const transformMessages = (dbMessages: Message[]): addMessageType[] => {
+  const chatMessages: addMessageType[] = [];
+  for (const msg of dbMessages) {
+    if (msg.userMessage) {
+      chatMessages.push({
+        role: "user" as const,
+        content: msg.userMessage,
+        timestamp: msg.timestamp.toString(),
+      });
+    }
+    if (msg.systemResponse) {
+      chatMessages.push({
+        role: "assistant" as const,
+        content: msg.systemResponse,
+        timestamp: msg.timestamp.toString(),
+      });
+    }
+  }
+  return chatMessages.sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+};
+
 export const MessageProvider: React.FC<MessageProviderProps> = ({
   children,
 }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<addMessageType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showMsg, setShowMsg] = useState<boolean>(false);
@@ -48,7 +72,7 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
       setLoading(true);
       const response = await axios.get("/api/messages");
       console.log("msg res", response.data);
-      setMessages(response.data);
+      setMessages(transformMessages(response.data));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -61,17 +85,8 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
   useEffect(() => {
     fetchMessages();
   }, []);
-  const addMessage = async (message: Omit<Message, "id">) => {
-    try {
-      setLoading(true);
-      const response = await axios.post<Message>("/api/messages", message); // Replace with your API endpoint
-      setMessages((prev) => [...prev, response.data]);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setLoading(false);
-    }
+  const addMessage = (messages: addMessageType[]) => {
+    setMessages((prev) => [...prev, ...messages]);
   };
 
   const toggleMsg = () => setShowMsg(!showMsg);

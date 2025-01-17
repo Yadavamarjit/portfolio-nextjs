@@ -10,18 +10,23 @@ export async function POST(req) {
     const result = await newUser.save();
     cookies().set("userId", result._id.toString(), {
       path: "/", // Cookie is accessible across the entire site
+      maxAge: 100 * 365 * 24 * 60 * 60,
     });
     cookies().set("latitude", result.latitude.toString(), {
-      path: "/", // Cookie is accessible across the entire site
+      path: "/",
+      maxAge: 100 * 365 * 24 * 60 * 60,
     });
     cookies().set("longitude", result.longitude.toString(), {
       path: "/", // Cookie is accessible across the entire site
+      maxAge: 100 * 365 * 24 * 60 * 60,
     });
     cookies().set("country_name", result.country_name.toString(), {
       path: "/", // Cookie is accessible across the entire site
+      maxAge: 100 * 365 * 24 * 60 * 60,
     });
     cookies().set("region", result.region.toString(), {
       path: "/", // Cookie is accessible across the entire site
+      maxAge: 100 * 365 * 24 * 60 * 60,
     });
     const response = new Response(JSON.stringify(result), {
       status: 201,

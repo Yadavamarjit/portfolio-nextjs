@@ -9,7 +9,7 @@ export const HeroSection = () => {
   }, []);
   return (
     <div className="sec-container flex flex-col  relative">
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-7xl mx-auto w-full mt-20 lg:mt-0">
         <p className="text-[#64ffda] mb-4 sm-text tracking-widest font-mono">
           Hi, my name is
         </p>

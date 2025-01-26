@@ -72,7 +72,7 @@ const Experiences = () => {
       <SectionTitle title="Where I've Worked" />
       <div className="flex flex-col lg:flex-row gap-8 mt-10  relative">
         {/* Company tabs */}
-        <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible sticky top-0">
+        <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible sticky top-2 h-fit">
           {experiences.map((exp) => (
             <button
               key={exp.company}

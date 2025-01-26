@@ -106,11 +106,11 @@ export const ProjectCard = ({ project }: { project: any }) => {
       <img
         src={project.img}
         alt={project.projectName}
-        className="w-full h-48 object-cover rounded-t-lg"
+        className="w-full h-48 2xl:h-56 object-cover rounded-t-lg"
       />
       <div className="p-5">
         <h3 className="text-xl font-bold text-accent">{project.projectName}</h3>
-        <div className="text-sm text-secondary mt-3">
+        <div className="sm-text text-secondary mt-3">
           <p className="text-pretty">
             {isExpanded ? project.description : firstTwentyWords}
             {hasMoreContent && !isExpanded && "..."}
@@ -124,9 +124,12 @@ export const ProjectCard = ({ project }: { project: any }) => {
             </button>
           )}
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2 ">
           {project.techs.map((tag: string) => (
-            <p key={tag} className={`text-[14px] ${getRandomColor()()}`}>
+            <p
+              key={tag}
+              className={`text-[14px] 2xl:text-xl ${getRandomColor()()}`}
+            >
               #{tag}
             </p>
           ))}

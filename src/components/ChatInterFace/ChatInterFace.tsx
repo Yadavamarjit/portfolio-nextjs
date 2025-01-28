@@ -193,6 +193,7 @@ const ChatInterface = ({
       ]);
 
       // Auto-speak the response if speech input was used
+      console.log("message", msg);
       if (autoSpeak) {
         speak(msg);
       }
@@ -233,7 +234,21 @@ const ChatInterface = ({
             >
               <div className="flex-1">
                 {message.role === "assistant" ? (
-                  <ReactMarkdown className="prose prose-sm max-w-none prose-pre:bg-gray-700 prose-pre:text-white prose-pre:p-2 prose-pre:rounded">
+                  <ReactMarkdown
+                    className="prose prose-sm max-w-none prose-pre:bg-gray-700 prose-pre:text-white prose-pre:p-2 prose-pre:rounded"
+                    components={{
+                      a: ({ node, ...props }) => (
+                        <a
+                          {...props}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent underline"
+                        >
+                          {props.children}
+                        </a>
+                      ),
+                    }}
+                  >
                     {message.content}
                   </ReactMarkdown>
                 ) : (

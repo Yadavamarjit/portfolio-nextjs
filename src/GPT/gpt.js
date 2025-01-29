@@ -24,6 +24,7 @@ export async function getGPT4Response(userPrompt, systemPrompt = "") {
         { role: "system", content: completePromt },
         { role: "user", content: userPrompt },
       ],
+      max_tokens: 2048,
       stream: true,
     });
     return response;

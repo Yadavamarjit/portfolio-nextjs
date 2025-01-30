@@ -19,7 +19,7 @@ export const addMessage = async (
       { _id: userId },
       { $push: { messagesId: messageResult._id } }
     );
-    console.log("----- added msg", { messageResult }, { userResult });
+
     // return new Response(JSON.stringify(messageResult), { status: 201 });
   } catch (error) {
     console.log("-----error in adding msg", error);

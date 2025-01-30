@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { searchEmbeddings } from "../../../embedding";
 import { getGPT4Response } from "../../../GPT/gpt";
 import { addMessage } from "@/utils/message";
+import { bm25 } from "@/utils/bm25";
 
 export async function POST(req) {
   const { userPrompt } = await req.json();
@@ -30,11 +31,14 @@ export async function POST(req) {
         Connection: "keep-alive",
       },
     });
+
     let completeMessage = "";
-    const gptResponse = await getGPT4Response(
+    const bm25Res = bm25(
       userPrompt,
-      searchResult[0].content
+      searchResult.map((result) => result.content)
     );
+
+    const gptResponse = await getGPT4Response(userPrompt, bm25Res[0].document);
 
     // Handle the stream
     (async () => {

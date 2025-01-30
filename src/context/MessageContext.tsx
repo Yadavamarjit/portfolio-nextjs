@@ -71,7 +71,6 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
     try {
       setLoading(true);
       const response = await axios.get("/api/messages");
-      console.log("msg res", response.data);
       setMessages(transformMessages(response.data));
       setError(null);
     } catch (err) {

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Send, Volume2, VolumeX, Mic, MicOff } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { addMessageType } from "@/types/messageTypes";
+import EmptyState from "../EmtypMessageState/EmtypMessageState";
 
 interface Message {
   timestamp: Date;
@@ -192,8 +193,6 @@ const ChatInterface = ({
         { role: "assistant", content: msg, timestamp: new Date().toString() },
       ]);
 
-      // Auto-speak the response if speech input was used
-      console.log("message", msg);
       if (autoSpeak) {
         speak(msg);
       }
@@ -218,60 +217,127 @@ const ChatInterface = ({
   return (
     <>
       <div className="flex-1 overflow-y-auto mb-4 space-y-4">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start w-full"
-            }`}
-          >
+        {messages.length > 0 ? (
+          messages.map((message, index) => (
             <div
-              className={`px-3 no-scrollbar rounded-3xl py-1 flex items-start gap-2 ${
-                message.role === "user"
-                  ? "bg-[#47477f4a] text-white max-w-[80%]"
-                  : "text-white max-w-[95%] py-2 overflow-x-scroll bg-[#5555782e]"
+              key={index}
+              className={`flex ${
+                message.role === "user" ? "justify-end" : "justify-start w-full"
               }`}
             >
-              <div className="flex-1">
-                {message.role === "assistant" ? (
-                  <ReactMarkdown
-                    className="prose prose-sm max-w-none prose-pre:bg-gray-700 prose-pre:text-white prose-pre:p-2 prose-pre:rounded"
-                    components={{
-                      a: ({ node, ...props }) => (
-                        <a
-                          {...props}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-accent underline"
-                        >
-                          {props.children}
-                        </a>
-                      ),
-                    }}
+              <div
+                className={`px-3 no-scrollbar rounded-3xl py-1 flex items-start gap-2 ${
+                  message.role === "user"
+                    ? "bg-[#47477f4a] text-white max-w-[80%]"
+                    : "text-white max-w-[95%] py-2 overflow-x-scroll bg-[#5555782e]"
+                }`}
+              >
+                <div className="flex-1">
+                  {message.role === "assistant" ? (
+                    <ReactMarkdown
+                      className="leading-relaxed"
+                      components={{
+                        // Style links
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-accent underline "
+                          />
+                        ),
+                        // Style code blocks
+                        pre: ({ node, ...props }) => (
+                          <pre
+                            {...props}
+                            className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto my-4"
+                          />
+                        ),
+                        img: ({ node, ...props }) => (
+                          <div className="my-4">
+                            <img
+                              {...props}
+                              loading="lazy"
+                              className="rounded-lg min-h-[200px] max-w-full h-auto object-cover mx-auto shadow-lg hover:shadow-xl transition-shadow duration-300"
+                              onError={(e) => {
+                                e.currentTarget.src =
+                                  "/api/placeholder/400/300";
+                                e.currentTarget.alt = "Image failed to load";
+                              }}
+                            />
+                          </div>
+                        ),
+                        // Style inline code
+                        code: ({ node, ...props }) => (
+                          <code
+                            {...props}
+                            className=" dark:bg-gray-700 px-1 py-0.5 rounded text-sm"
+                          />
+                        ),
+                        // Style headings
+                        h1: ({ node, ...props }) => (
+                          <h1
+                            {...props}
+                            className="text-2xl font-bold my-3 text-secondary"
+                          />
+                        ),
+                        h2: ({ node, ...props }) => (
+                          <h2
+                            {...props}
+                            className="text-xl font-bold mt-5 mb-3"
+                          />
+                        ),
+                        h3: ({ node, ...props }) => (
+                          <h3
+                            {...props}
+                            className="text-lg font-bold text-primary my-2"
+                          />
+                        ),
+                        // Style paragraphs
+                        p: ({ node, ...props }) => (
+                          <p {...props} className="my-1 leading-relaxed" />
+                        ),
+                        // Style lists
+                        ul: ({ node, ...props }) => (
+                          <ul
+                            {...props}
+                            className="list-inside my-1.5 space-y-2"
+                          />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol
+                            {...props}
+                            className="list-decimal list-inside my-4 space-y-2"
+                          />
+                        ),
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  ) : (
+                    <div className="whitespace-pre-wrap break-words">
+                      {message.content}
+                    </div>
+                  )}
+                </div>
+                {message.role === "assistant" && (
+                  <button
+                    onClick={() => speak(message.content)}
+                    className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"
                   >
-                    {message.content}
-                  </ReactMarkdown>
-                ) : (
-                  <div className="whitespace-pre-wrap break-words">
-                    {message.content}
-                  </div>
+                    {isSpeaking ? (
+                      <VolumeX size={16} className="text-gray-300" />
+                    ) : (
+                      <Volume2 size={16} className="text-gray-300" />
+                    )}
+                  </button>
                 )}
               </div>
-              {message.role === "assistant" && (
-                <button
-                  onClick={() => speak(message.content)}
-                  className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"
-                >
-                  {isSpeaking ? (
-                    <VolumeX size={16} className="text-gray-300" />
-                  ) : (
-                    <Volume2 size={16} className="text-gray-300" />
-                  )}
-                </button>
-              )}
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <EmptyState />
+        )}
         <div ref={messagesEndRef} />
       </div>
 

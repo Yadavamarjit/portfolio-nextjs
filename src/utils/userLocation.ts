@@ -49,11 +49,11 @@ export const onBoardUser = async () => {
     let userId;
     if (!existingUserId) {
       const location = await userLocation();
-      console.log("onboarded user", { userId, location });
+
       const response = await axios.post("/api/users", {
         ...location,
       });
-      console.log({ response: response.data });
+
       //   cookieStore.set("userId", response.data._id);
     }
 

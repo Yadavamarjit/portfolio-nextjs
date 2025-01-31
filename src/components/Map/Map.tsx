@@ -65,21 +65,13 @@ const MapContent = () => {
         <MapPin className="h-6 w-6 text-gray-600" />
       </button>
 
-      <div className="absolute md:relative w-fit top-[25%] h-fit  overflow-hidden bottom-0  z-[1000] py-2">
+      <div className="absolute md:relative w-fit top-[45%] lg:top-[25%] h-fit  overflow-hidden bottom-0  z-[1000] py-2">
         <div className="">
-          <div className="flex justify-between items-center">
-            <button
-              onClick={() => setShowSidebar(false)}
-              className="md:hidden p-1"
-            >
-              <X className="h-5 w-5 text-gray-500" />
-            </button>
-          </div>
-          <div className="space-y-3">
+          <div className="backdrop-blur rounded-md overflow-hidden">
             {locations.map((location, index) => (
               <div
                 key={index}
-                className={`px-3  cursor-pointer transition-all duration-200 backdrop-blur rounded-r-md py-2 hover:bg-violet-900/10 `}
+                className={`px-3  cursor-pointer transition-all duration-200  rounded-r-md py-3 hover:bg-violet-900/10 `}
                 onClick={() => handleLocationClick(location.name)}
               >
                 <div className="flex items-center gap-2 relative px-3">
@@ -92,11 +84,11 @@ const MapContent = () => {
                     ></div>
                   </div>
 
-                  <span className="font-medium text-gray-700 ml-1 text-xs tracking-widest">
+                  <span className="font-medium text-gray-700 ml-1 text-xs tracking-widest ">
                     {location.name}
                   </span>
                 </div>
-                <p className="text-[10px] text-gray-600  ml-4">
+                <p className="text-[10px] text-gray-600  ml-4 hidden lg:block">
                   {location.address}
                 </p>
               </div>

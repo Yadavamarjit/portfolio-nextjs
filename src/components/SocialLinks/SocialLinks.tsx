@@ -5,7 +5,7 @@ import Link from "next/link";
 const socialLinks = [
   {
     id: "github",
-    href: "https://github.com/your-profile",
+    href: "https://github.com/Yadavamarjit",
     icon: <Github size={20} />,
     label: "Github",
   },

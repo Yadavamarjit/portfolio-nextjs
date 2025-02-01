@@ -1,49 +1,138 @@
 import React from "react";
-import GraingImg from "@/assets/images/grain.jpg";
-const ContactSection = () => {
+import {
+  Linkedin,
+  Instagram,
+  Mail,
+  Calendar,
+  ExternalLink,
+  ArrowRight,
+} from "lucide-react";
+import SectionTitle from "@/components/SectionTitle/SectionTitle";
+
+interface SocialLink {
+  id: string;
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+  description: string;
+}
+
+const ContactSection: React.FC = () => {
+  const socialLinks: SocialLink[] = [
+    {
+      id: "linkedin",
+      href: "https://www.linkedin.com/in/yadav-amarjit/",
+      icon: <Linkedin className="w-6 h-6" />,
+      label: "LinkedIn",
+      description: "Connect professionally & follow my career journey",
+    },
+    {
+      id: "instagram",
+      href: "https://www.instagram.com/amerjit.yadav___/",
+      icon: <Instagram className="w-6 h-6" />,
+      label: "Instagram",
+      description: "Follow my creative side & daily inspirations",
+    },
+    {
+      id: "email",
+      href: "mailto:yadavamarjit772@gmail.com",
+      icon: <Mail className="w-6 h-6" />,
+      label: "Email",
+      description: "Direct communication for opportunities",
+    },
+  ];
+
   return (
-    <div className="py-16 pt-12 lg:py-24 lg:pt-20" id="contact">
-      <div className="container">
-        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 text-gray-900 py-8 px-10 rounded-3xl text-center md:text-left relative overflow-hidden z-30">
-          <div
-            className="absolute inset-0 opacity-5 -z-10"
-            style={{ backgroundImage: `url(${GraingImg.src})` }}
-          ></div>
-          <div className="flex flex-col md:flex-row md:gap-16 items-center">
-            <div>
-              <h2 className="font-serif text-2xl md:text-3xl">
-                Let&apos;s create something amazing together
-              </h2>
-              <p className="text-sm mt-2 md:text-base">
-                Ready to bring your next project to life? Let&apos;s connect and
-                discuss how I can help you achieve your goals.
-              </p>
-            </div>
-            <a href="mailto:ghzielmorhaf@gmail.com">
-              <div className="mt-8 md:mt-0">
-                <button className="text-white bg-gray-900 inline-flex items-center px-6 h-12 rounded-xl gap-2 w-max border border-gray-900 cursor-pointer">
-                  <span className="font-semibold">Contact Me</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="size-4"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M7 17L17 7M7 7h10v10"></path>
-                  </svg>
-                </button>
+    <section className=" relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-[10%] -right-20 w-72 h-72 bg-[#64ffda] rounded-full opacity-5 blur-3xl" />
+      <div className="absolute bottom-[10%]  -left-20 w-72 h-72 bg-[#64ffda] rounded-full opacity-5 blur-3xl" />
+      <div className="sec-container  overflow-hidden">
+        <div className="relative z-10 mb-20">
+          <SectionTitle title="Contact" />
+          <div className="mt-6 max-w-2xl">
+            <p className="text-gray-300 text-lg leading-relaxed">
+              I'm always excited to connect with fellow developers, potential
+              collaborators, and anyone interested in creating innovative
+              digital experiences.
+            </p>
+            <p className="text-gray-400 mt-4">
+              Choose your preferred way to reach out — I'm just a message away.
+            </p>
+          </div>
+        </div>
+
+        {/* Social Links Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-20 max-w-4xl mx-auto">
+          {socialLinks.map((link) => (
+            <a
+              key={link.id}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative"
+            >
+              <div className="absolute inset-0 bg-[#64ffda] opacity-5 blur-sm rounded-lg transform group-hover:scale-105 transition-transform duration-300" />
+              <div className="relative p-8 rounded-lg border border-gray-700/50 bg-[#112240] hover:border-[#64ffda] transform hover:translate-y--2 transition-all duration-300">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="p-3 rounded-full bg-[#0a192f] group-hover:bg-[#64ffda]/10 transition-colors duration-300">
+                    <span className="text-gray-400 group-hover:text-[#64ffda] transition-colors duration-300">
+                      {link.icon}
+                    </span>
+                  </div>
+                  <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-[#64ffda] opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-200 group-hover:text-[#64ffda] mb-3 transition-colors duration-300">
+                  {link.label}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {link.description}
+                </p>
               </div>
             </a>
+          ))}
+        </div>
+
+        {/* Calendly Section */}
+        <div className="relative max-w-4xl mx-auto">
+          <div className="absolute inset-0 bg-[#64ffda] opacity-5 blur-sm rounded-lg" />
+          <div className="relative border border-gray-700/50 bg-[#112240] rounded-lg p-10 hover:border-[#64ffda] transition-all duration-300">
+            <div className="flex items-start justify-between mb-8">
+              <div>
+                <h3 className="text-2xl font-semibold text-gray-200 mb-4">
+                  Let's Schedule a Meeting
+                </h3>
+                <p className="text-gray-400 max-w-xl leading-relaxed">
+                  Have an exciting project in mind or want to explore potential
+                  collaborations? Let's find the perfect time to discuss your
+                  ideas and see how we can create something extraordinary
+                  together.
+                </p>
+              </div>
+              <div className="p-4 rounded-full bg-[#0a192f]">
+                <Calendar className="w-8 h-8 text-[#64ffda]" />
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <a
+                href="https://calendly.com/yadavamarjit772/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#64ffda] text-[#0a192f] rounded-lg font-medium hover:bg-[#4cd8b5] transition-colors duration-300"
+              >
+                <span>Schedule via Calendly</span>
+                <ArrowRight className="w-5 h-5" />
+              </a>
+              <p className="text-gray-400 text-sm">
+                Available for 30-minute discovery calls • Quick response
+                guaranteed
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

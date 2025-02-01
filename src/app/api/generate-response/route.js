@@ -1,10 +1,12 @@
-// app/api/posts/route.js
-
 import { cookies } from "next/headers";
 import { searchEmbeddings } from "../../../embedding";
 import { getGPT4Response } from "../../../GPT/gpt";
 import { addMessage } from "@/utils/message";
 import { bm25 } from "@/utils/bm25";
+
+export const config = {
+  maxDuration: 60, // Increase timeout to 60 seconds
+};
 
 export async function POST(req) {
   const { userPrompt } = await req.json();
@@ -17,13 +19,12 @@ export async function POST(req) {
   }
 
   try {
-    const searchResult = await searchEmbeddings(userPrompt);
-
+    // Create the stream first
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
     const encoder = new TextEncoder();
 
-    // Start the streaming response
+    // Start the response immediately
     const streamResponse = new Response(stream.readable, {
       headers: {
         "Content-Type": "text/event-stream",
@@ -32,48 +33,64 @@ export async function POST(req) {
       },
     });
 
-    let completeMessage = "";
-    const bm25Res = bm25(
-      userPrompt,
-      searchResult.map((result) => result.content)
-    );
-
-    const gptResponse = await getGPT4Response(userPrompt, bm25Res[0].document);
-
-    // Handle the stream
+    // Handle the async operations in the background
     (async () => {
       try {
+        // Send initial message to keep connection alive
+        await writer.write(encoder.encode(`data: Starting process...\n\n`));
+
+        // Run searchEmbeddings with timeout
+        const searchPromise = searchEmbeddings(userPrompt);
+        const searchResult = await Promise.race([
+          searchPromise,
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Search timeout")), 8000)
+          ),
+        ]);
+
+        // Process BM25 results
+        const bm25Res = bm25(
+          userPrompt,
+          searchResult.map((result) => result.content)
+        );
+
+        let completeMessage = "";
+        const gptResponse = await getGPT4Response(
+          userPrompt,
+          bm25Res[0].document
+        );
+
         for await (const chunk of gptResponse) {
           const content = chunk.choices[0]?.delta?.content || "";
           if (content) {
-            // Write the chunk to the stream
-            // console.log("Streaming chunk:", content);
             completeMessage += content;
-            await writer.write(encoder.encode(`data: ${content}`));
+            await writer.write(encoder.encode(`data: ${content}\n\n`));
           }
         }
+
+        // Store message in background
         const cookiesStore = cookies();
-        addMessage(
+        await addMessage(
           cookiesStore.get("userId").value,
           userPrompt,
           completeMessage
         );
-        // Close the stream
+
+        // Send completion message
+        await writer.write(encoder.encode(`data: [DONE]\n\n`));
         await writer.close();
       } catch (error) {
         console.error("Streaming error:", error);
-        await writer.abort(error);
+        // Send error message to client
+        await writer.write(encoder.encode(`data: Error: ${error.message}\n\n`));
+        await writer.close();
       }
     })();
-    return streamResponse;
 
-    // return new Response(gptResponse, {
-    //   status: 200,
-    //   headers: { "Content-Type": "application/json" },
-    // });
+    return streamResponse;
   } catch (error) {
-    console.error("Error processing GPT-4 response:", error.message);
-    return new Response(JSON.stringify({ error: "Internal server errror" }), {
+    console.error("Error processing request:", error.message);
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

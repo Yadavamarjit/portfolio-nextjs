@@ -25,7 +25,7 @@ export default async function Home() {
         <ProjectsSection />
         <TapeSection />
         <AboutSection />
-        {/* <ContactSection /> */}
+        <ContactSection />
         <Footer />
         {/* <StarsCanvas /> */}
       </div>

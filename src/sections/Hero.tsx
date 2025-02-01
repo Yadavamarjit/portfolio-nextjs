@@ -8,7 +8,7 @@ export const HeroSection = () => {
     onBoardUser();
   }, []);
   return (
-    <div className="sec-container flex flex-col  relative">
+    <div className="sec-container flex flex-col  relative" id="home">
       <div className="max-w-7xl mx-auto w-full mt-20 lg:mt-0">
         <p className="text-[#64ffda] mb-4 sm-text tracking-widest font-mono">
           Hi, my name is

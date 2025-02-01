@@ -48,52 +48,51 @@ export const AboutSection = () => {
     setLoader(true);
   }, []);
   return (
-    <div className="sec-container px-5">
-      <div className="container">
-        <SectionTitle title="About Me" />
-        <AchievementsShowcase />
-        <div className="mt-10 flex flex-col gap-6">
-          <div className="grid md:grid-cols-5 md:gap-8 gap-y-6">
-            {" "}
-            <Card className="h-[320px] p-0 relative col-span-3">
-              <div>
-                <CardHeader
-                  className="p-6"
-                  title="My Tools"
-                  description="Explore the book shaping my perspective"
-                />
-              </div>
-              <div className="flex flex-col gap-8 mt-2">
-                <ToolBoxItems />
-                <ToolBoxItems reverse={true} />
-              </div>
-            </Card>
-            <Card className="h-[320px] p-0 flex flex-col col-span-3 lg:col-span-2 ">
-              <div>
-                <CardHeader
-                  className="p-6"
-                  title="Beyond the code"
-                  description="Explore the book shaping my perspective"
-                />
-              </div>
-              <div className="relative flex-1" ref={dragConstraintRef}>
-                {hobbies.map((hobby) => (
-                  <motion.div
-                    key={hobby.title}
-                    className="inline-flex cursor-pointer items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full absolute py-1.5"
-                    style={{ top: hobby.top, left: hobby.left }}
-                    drag
-                    dragConstraints={dragConstraintRef}
-                  >
-                    <span className="font-medium text-gray-950">
-                      {hobby.title}
-                    </span>
-                    <span>{hobby.icon}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </Card>
-            {/* <Card className="h-[320px] p-0 relative col-span-2">
+    <div className="sec-container px-5" id="about">
+      <SectionTitle title="About Me" />
+      <AchievementsShowcase />
+      <div className="mt-10 flex flex-col gap-6">
+        <div className="grid md:grid-cols-5 md:gap-8 gap-y-6">
+          {" "}
+          <Card className="h-[320px] p-0 relative col-span-3">
+            <div>
+              <CardHeader
+                className="p-6"
+                title="My Tools"
+                description="Explore the book shaping my perspective"
+              />
+            </div>
+            <div className="flex flex-col gap-8 mt-2">
+              <ToolBoxItems />
+              <ToolBoxItems reverse={true} />
+            </div>
+          </Card>
+          <Card className="h-[320px] p-0 flex flex-col col-span-3 lg:col-span-2 ">
+            <div>
+              <CardHeader
+                className="p-6"
+                title="Beyond the code"
+                description="Explore the book shaping my perspective"
+              />
+            </div>
+            <div className="relative flex-1" ref={dragConstraintRef}>
+              {hobbies.map((hobby) => (
+                <motion.div
+                  key={hobby.title}
+                  className="inline-flex cursor-pointer items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full absolute py-1.5"
+                  style={{ top: hobby.top, left: hobby.left }}
+                  drag
+                  dragConstraints={dragConstraintRef}
+                >
+                  <span className="font-medium text-gray-950">
+                    {hobby.title}
+                  </span>
+                  <span>{hobby.icon}</span>
+                </motion.div>
+              ))}
+            </div>
+          </Card>
+          {/* <Card className="h-[320px] p-0 relative col-span-2">
               <Image
                 className="h-full w-full object-cover"
                 src={mapImage}
@@ -105,11 +104,10 @@ export const AboutSection = () => {
                 <Image className="size-20" src={memoji} alt="map" />
               </div>
             </Card> */}
-          </div>
-          <Card className="h-96 p-0">
-            <Map />
-          </Card>
         </div>
+        <Card className="h-96 p-0">
+          <Map />
+        </Card>
       </div>
     </div>
   );

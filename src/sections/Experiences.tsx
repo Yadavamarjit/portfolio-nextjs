@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import { ArrowRight, BadgeCheck, ChevronRight } from "lucide-react";
 
@@ -59,38 +59,65 @@ const experiences = [
     ],
   },
 ];
+import { motion, useInView } from "framer-motion";
 
 const Experiences = () => {
   const [activeCompany, setActiveCompany] = useState(experiences[0].company);
-
   const activeExperience = experiences.find(
     (exp) => exp.company === activeCompany
   );
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const tabVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+    hover: { scale: 1.05, transition: { type: "spring", stiffness: 300 } },
+  };
+
+  const experienceVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  };
+
+  const projectVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
 
   return (
-    <section className="sec-container pb-10 lg:pb-20">
+    <section className="sec-container pb-10 lg:pb-20" ref={ref}>
       <SectionTitle title="Where I've Worked" />
-      <div className="flex flex-col lg:flex-row gap-8 mt-10  relative">
-        {/* Company tabs */}
-        <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible sticky top-2 h-fit">
+      <div className="flex flex-col lg:flex-row gap-8 mt-10 relative">
+        <motion.div
+          className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible sticky top-2 h-fit"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {experiences.map((exp) => (
-            <button
+            <motion.button
               key={exp.company}
               onClick={() => setActiveCompany(exp.company)}
               className={`lg:p-4 py-2 sm-text min-w-[140px] lg:text-left text-center lg:rounded-lg transition-all duration-300 hover:text-accent/80 hover:bg-accent/5 hover:backdrop-blur ${
                 activeCompany === exp.company
-                  ? "border-b-2 border-b-accent/40 lg:border-accent/40 lg:border  text-accent backdrop-blur "
-                  : " text-slate-400 border-transparent"
+                  ? "border-b-2 border-b-accent/40 lg:border-accent/40 lg:border text-accent backdrop-blur"
+                  : "text-slate-400 border-transparent"
               }`}
+              variants={tabVariants}
+              whileHover="hover"
             >
               {exp.company}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Experience details */}
         {activeExperience && (
-          <div className="flex-1 backdrop-blur lg:p-4 rounded-lg border-accent/40 lg:border 2xl:px-10 2xl:py-6">
+          <motion.div
+            className="flex-1 backdrop-blur lg:p-4 rounded-lg border-accent/40 lg:border 2xl:px-10 2xl:py-6"
+            variants={experienceVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <h2 className="text-2xl font-semibold text-slate-200 2xl:text-4xl">
               {activeExperience.role}{" "}
               <span className="text-emerald-400">
@@ -101,29 +128,38 @@ const Experiences = () => {
               {activeExperience.period}
             </p>
 
-            {/* Projects */}
             <div className="mt-6 space-y-8">
               {activeExperience.projects.map((project, index) => (
-                <div key={index} className="space-y-4">
+                <motion.div
+                  key={index}
+                  className="space-y-4"
+                  variants={projectVariants}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  transition={{ delay: index * 0.2 }}
+                >
                   <h3 className="text-lg font-medium text-slate-200 2xl:text-2xl">
                     {project.title}
                   </h3>
                   <ul className="space-y-4 sm-text text-pretty">
                     {project.points.map((point, pointIndex) => (
-                      <li
+                      <motion.li
                         key={pointIndex}
                         className="flex gap-2 text-slate-400 leading-relaxed items-center"
+                        variants={projectVariants}
+                        initial="hidden"
+                        animate={isInView ? "visible" : "hidden"}
+                        transition={{ delay: pointIndex * 0.1 }}
                       >
-                        <ChevronRight className="flex-shrink-0 text-accent/80 " />
-                        {/* <div className="w-2 h-2 mt-2 rounded-full bg-accent flex-shrink-0" /> */}
+                        <ChevronRight className="flex-shrink-0 text-accent/80" />
                         <span>{point}</span>
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

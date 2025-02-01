@@ -1,29 +1,74 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { onBoardUser } from "@/utils/userLocation";
 import { useEffect } from "react";
+import { BackgroundGlow } from "@/components/BackgroutGlow/BackgroutGlow";
 
 export const HeroSection = () => {
   useEffect(() => {
     onBoardUser();
   }, []);
+
+  // Animation variants for text and button
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, delay: 0.4 },
+    },
+    hover: { scale: 1.05, transition: { type: "spring", stiffness: 300 } },
+  };
+
   return (
-    <div className="sec-container flex flex-col  relative" id="home">
+    <div className="sec-container flex flex-col relative" id="home">
       <div className="max-w-7xl mx-auto w-full mt-20 lg:mt-0">
-        <p className="text-[#64ffda] mb-4 sm-text tracking-widest font-mono">
+        {/* Animated text */}
+        <motion.p
+          className="text-[#64ffda] mb-4 sm-text tracking-widest font-mono"
+          variants={textVariants}
+          initial="hidden"
+          animate="visible"
+        >
           Hi, my name is
-        </p>
+        </motion.p>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-2 sm:mb-4">
+        <motion.h1
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-2 sm:mb-4"
+          variants={textVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.2 }}
+        >
           Yadav Amarjit.
-        </h1>
+        </motion.h1>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-[#8892b0] mb-6 sm:mb-8">
+        <motion.h1
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-[#8892b0] mb-6 sm:mb-8"
+          variants={textVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.3 }}
+        >
           I build what you envision
-        </h1>
+        </motion.h1>
+
         <BackgroundGlow />
+
         <div className="relative max-w-xl lg:max-w-2xl">
-          <p className="text-secondary sm-text leading-relaxed duration-300">
+          <motion.p
+            className="text-secondary sm-text leading-relaxed duration-300"
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.4 }}
+          >
             <span className="text-[#64ffda] font-semibold">Code Alchemist</span>{" "}
             and{" "}
             <span className="text-[#64ffda] font-semibold">
@@ -51,63 +96,24 @@ export const HeroSection = () => {
             </span>
             . From sleek UIs to smart chatbots, I craft cutting-edge solutions
             and bring bold tech visions to life.
-          </p>
+          </motion.p>
 
-          <div className="mt-8 sm:mt-10 lg:mt-12">
-            <button className="w-full sm:w-auto group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300 sm-text">
-              Let&apos;s create something extraordinary!
-            </button>
-          </div>
+          {/* Animated button */}
+          <motion.div
+            className="mt-8 sm:mt-10 lg:mt-12"
+            variants={buttonVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover="hover"
+          >
+            <a href="#contact">
+              <button className="w-full sm:w-auto group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300 sm-text">
+                Let&apos;s create something extraordinary!
+              </button>
+            </a>
+          </motion.div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export const BackgroundGlow = () => {
-  return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden -z-10">
-      {/* Main background color */}
-      <div className="absolute inset-0 bg-[#0a192f]" />
-
-      {/* Primary glow source - top right */}
-      <div
-        className="absolute top-[15%] left-0 w-[70%] h-[70%] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgb(72 189 160 / 20%) 0%, rgb(100 255 218 / 8%) 45%, rgb(100 255 218 / 0%) 70%)",
-          filter: "blur(60px)",
-        }}
-      />
-
-      {/* Secondary glow source - center left */}
-      {/* <div
-        className="absolute top-[30%] -left-[10%] w-[50%] h-[50%] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(100,255,218,0.05) 0%, rgba(100,255,218,0.02) 45%, rgba(100,255,218,0) 70%)",
-          filter: "blur(45px)",
-        }}
-      /> */}
-
-      {/* Accent glow - bottom */}
-      {/* <div
-        className="absolute -bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(100,255,218,0.06) 0%, rgba(100,255,218,0.02) 45%, rgba(100,255,218,0) 70%)",
-          filter: "blur(50px)",
-        }}
-      /> */}
-
-      {/* Subtle overlay for depth */}
-      {/* <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(10,25,47,0.2) 100%)",
-        }}
-      /> */}
     </div>
   );
 };

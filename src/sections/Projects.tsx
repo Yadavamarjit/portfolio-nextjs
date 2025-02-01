@@ -1,6 +1,8 @@
 "use client";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export const getRandomColor = () => {
   let previousColors: any = [];
@@ -82,12 +84,28 @@ const projectsData = [
 ];
 
 export const ProjectsSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
   return (
-    <section className="sec-container relative" id="projects">
+    <section className="sec-container relative" id="projects" ref={ref}>
       <SectionTitle title="Some Things I've Built" />
       <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
         {projectsData.map((project, index) => (
-          <ProjectCard key={index} project={project} />
+          <motion.div
+            key={index}
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{ delay: index * 0.2 }}
+          >
+            <ProjectCard project={project} />
+          </motion.div>
         ))}
       </div>
     </section>
@@ -101,16 +119,34 @@ export const ProjectCard = ({ project }: { project: any }) => {
   const firstTwentyWords = words.slice(0, limit).join(" ");
   const hasMoreContent = words.length > limit;
 
+  const contentVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
+
   return (
-    <div className="rounded-lg  backdrop-blur-3xl transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
+    <div className="rounded-lg backdrop-blur-3xl transition-shadow border-accent/40 border hover:shadow-accent/10 hover:shadow-2xl">
       <img
         src={project.img}
         alt={project.projectName}
         className="w-full h-48 2xl:h-56 object-cover rounded-t-lg"
       />
       <div className="p-5">
-        <h3 className="text-xl font-bold text-accent">{project.projectName}</h3>
-        <div className="sm-text text-secondary mt-3">
+        <motion.h3
+          className="text-xl font-bold text-accent"
+          variants={contentVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {project.projectName}
+        </motion.h3>
+        <motion.div
+          className="sm-text text-secondary mt-3"
+          variants={contentVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.2 }}
+        >
           <p className="text-pretty">
             {isExpanded ? project.description : firstTwentyWords}
             {hasMoreContent && !isExpanded && "..."}
@@ -123,8 +159,14 @@ export const ProjectCard = ({ project }: { project: any }) => {
               {isExpanded ? "See Less" : "See More"}
             </button>
           )}
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2 ">
+        </motion.div>
+        <motion.div
+          className="mt-4 flex flex-wrap gap-2"
+          variants={contentVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.4 }}
+        >
           {project.techs.map((tag: string) => (
             <p
               key={tag}
@@ -133,18 +175,22 @@ export const ProjectCard = ({ project }: { project: any }) => {
               #{tag}
             </p>
           ))}
-        </div>
+        </motion.div>
         {project.link && (
-          <a
+          <motion.a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full"
+            variants={contentVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.6 }}
           >
             <button className="w-full mt-4 group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300">
               View Project
             </button>
-          </a>
+          </motion.a>
         )}
       </div>
     </div>

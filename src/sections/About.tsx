@@ -48,7 +48,7 @@ export const AboutSection = () => {
     setLoader(true);
   }, []);
   return (
-    <div className="sec-container px-5" id="about">
+    <div className="sec-container " id="about">
       <SectionTitle title="About Me" />
       <AchievementsShowcase />
       <div className="mt-10 flex flex-col gap-6">

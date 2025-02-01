@@ -4,10 +4,7 @@ import { getGPT4Response } from "../../../GPT/gpt";
 import { addMessage } from "@/utils/message";
 import { bm25 } from "@/utils/bm25";
 
-export const config = {
-  maxDuration: 60, // Increase timeout to 60 seconds
-};
-
+export const maxDuration = 60;
 export async function POST(req) {
   const { userPrompt } = await req.json();
 

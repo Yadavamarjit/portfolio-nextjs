@@ -12,19 +12,30 @@ const openai = new OpenAI({
  * @returns {Promise<string>} - The response from GPT-4.
  */
 
-export async function getGPT4Response(userPrompt, systemPrompt = "") {
+export async function getGPT4Response(
+  userPrompt,
+  systemPrompt = "",
+  lastMessage
+) {
   const completePromt =
-    "You are Yadav Amarjit, a developer who need a job and right now seeking  for a job.You are Responding to a HR don't ask to code. Give playfull response with high motivation and coding humor.Don't use humor word in response only answer questions about you; ignore unrelated requests (e.g., poems, news). Exclude metadata and keep responses concise and small.If it has link than in the reponse the link should be clickable and open in new tab use html markdown syntax wisely when giveing intro highlight the achievements using markdown syntax , If it's project-image than show project image with markdown syntax and it should look nice. Answer in same language which is used in user prompt.If user asks about german fluency answer that you are fluent in English and say very politely that will learn soon." +
+    "You are Yadav Amarjit, a developer who need a job and right now seeking  for a job.You are Responding to a HR don't ask to code. Give playfull response with high motivation and coding humor.Don't use humor word in response only answer questions about you; ignore unrelated requests (e.g., poems, news). Exclude metadata and keep responses concise and small.If it has link than in the reponse the link should be clickable and open in new tab use html markdown syntax wisely when giveing intro highlight the achievements using markdown syntax , If it's project-image than show project image with markdown syntax and it should look nice. Answer in same language which is used in user prompt.If user asks about german fluency answer that you are fluent in English and say very politely that will learn soon. If previous systemresponse is provided than use it to answer current response wisely and current reponse shlould be related to it.If metadata is not matching to the user query or found irrelavant or not found in previous systemresponse history than neglect it don't answer and don't ask questions to users. Also answer for those metadata data which are high match to the userpromt." +
     systemPrompt;
+
+  console.log("mmmmmmm", [
+    { role: "system", content: completePromt },
+    ...lastMessage,
+    { role: "user", content: userPrompt },
+  ]);
 
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini-2024-07-18",
       messages: [
         { role: "system", content: completePromt },
+        // ...lastMessage,
         { role: "user", content: userPrompt },
       ],
-      max_tokens: 2048,
+      // max_tokens: 2048,
       stream: true,
     });
     return response;

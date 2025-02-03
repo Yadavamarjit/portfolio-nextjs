@@ -81,6 +81,13 @@
     /* left: none !important; */
   }
 }
+@media (min-width: 1900px) {
+  .react-modal-sheet-container {
+    width: 600px !important;
+    right: 20px !important;
+    /* left: none !important; */
+  }
+}
 
 html {
   scroll-behavior: smooth;

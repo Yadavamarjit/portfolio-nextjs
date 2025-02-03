@@ -28,3 +28,17 @@ export const addMessage = async (
     // });
   }
 };
+
+export const getMessage = async (userId: string) => {
+  await connectToDatabase();
+  try {
+    const messages = await message.find({ userId }).sort({ _id: -1 }).limit(1);
+    if (messages.length > 0) {
+      return messages[0];
+    }
+    return null;
+  } catch (error) {
+    console.log("-----error in getting msg", error);
+    return null;
+  }
+};

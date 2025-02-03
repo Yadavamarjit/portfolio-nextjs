@@ -3,8 +3,9 @@
 import { cookies } from "next/headers";
 import { searchEmbeddings } from "../../../embedding";
 import { getGPT4Response } from "../../../GPT/gpt";
-import { addMessage } from "@/utils/message";
+import { addMessage, getMessage } from "@/utils/message";
 import { bm25 } from "@/utils/bm25";
+import { interpretContextualResponse } from "@/utils/interpretContextualResponse";
 export const maxDuration = 60;
 export async function POST(req) {
   const { userPrompt } = await req.json();
@@ -17,6 +18,7 @@ export async function POST(req) {
   }
 
   try {
+    const cookiesStore = cookies();
     const searchResult = await searchEmbeddings(userPrompt);
 
     const stream = new TransformStream();
@@ -37,8 +39,18 @@ export async function POST(req) {
       userPrompt,
       searchResult.map((result) => result.content)
     );
-
-    const gptResponse = await getGPT4Response(userPrompt, bm25Res[0].document);
+    const lastMessageReqiured = interpretContextualResponse(userPrompt);
+    let lastMessage = [];
+    if (lastMessageReqiured) {
+      console.log("-----------lastemessage", lastMessageReqiured);
+      const msg = await getMessage(cookiesStore.get("userId").value);
+      lastMessage.push({ role: "assistant", content: msg.systemResponse });
+    }
+    const gptResponse = await getGPT4Response(
+      userPrompt,
+      bm25Res[0].document,
+      lastMessage
+    );
 
     // Handle the stream
     (async () => {
@@ -52,7 +64,7 @@ export async function POST(req) {
             await writer.write(encoder.encode(`data: ${content}`));
           }
         }
-        const cookiesStore = cookies();
+
         addMessage(
           cookiesStore.get("userId").value,
           userPrompt,

@@ -7,6 +7,8 @@ export const AIAssistantAnimation = ({ size = 192 }) => {
   const [phase, setPhase] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
+  const { loading } = useMessages();
+
   // Calculate scale factor based on default size of 192px (48 * 4)
   const scale = size / 192;
 
@@ -19,7 +21,9 @@ export const AIAssistantAnimation = ({ size = 192 }) => {
 
   return (
     <div
-      className="relative cursor-pointer"
+      className={`${
+        loading ? "hidden" : "block"
+      } transition-all  relative cursor-pointer`}
       style={{ width: size, height: size }}
       onClick={toggleMsg}
     >

@@ -17,7 +17,6 @@ export const interpretContextualResponse = (message: string) => {
     "agreed",
     "fine",
     "go ahead",
-    "y",
     "confirmed",
     "sounds good",
     "why not",

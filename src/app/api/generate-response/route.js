@@ -23,9 +23,12 @@ export async function POST(req) {
     const lastMessageReqiured = interpretContextualResponse(userPrompt);
     let lastMessage = "";
     let bm25Res = [];
+    console.log({ lastMessageReqiured });
     if (lastMessageReqiured) {
+      const userId = cookiesStore.get("userId");
+      console.log("iuiyjhkeri", userId);
       const msg = await getMessage(cookiesStore.get("userId").value);
-      lastMessage = `(meta:  this is your last response to the user last question) ${msg.systemResponse}`;
+      lastMessage = `(meta:  this is your last response to the user last question) ${msg?.systemResponse}`;
       // lastMessage.push({ role: "assistant", content: msg.systemResponse });
     } else {
     }

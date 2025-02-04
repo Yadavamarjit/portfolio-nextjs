@@ -17,10 +17,9 @@ export const HeroSection = () => {
   };
 
   const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      scale: 1,
       transition: { duration: 0.6, delay: 0.4 },
     },
     hover: { scale: 1.05, transition: { type: "spring", stiffness: 300 } },
@@ -100,7 +99,7 @@ export const HeroSection = () => {
 
           {/* Animated button */}
           <motion.div
-            className="mt-8 sm:mt-10 lg:mt-12"
+            className="mt-8 sm:mt-10 lg:mt-12 w-fit"
             variants={buttonVariants}
             initial="hidden"
             animate="visible"

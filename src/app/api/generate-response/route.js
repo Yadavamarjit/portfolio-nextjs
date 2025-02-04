@@ -19,7 +19,21 @@ export async function POST(req) {
 
   try {
     const cookiesStore = cookies();
+
+    const lastMessageReqiured = interpretContextualResponse(userPrompt);
+    let lastMessage = "";
+    let bm25Res = [];
+    if (lastMessageReqiured) {
+      const msg = await getMessage(cookiesStore.get("userId").value);
+      lastMessage = `(meta:  this is your last response to the user last question) ${msg.systemResponse}`;
+      // lastMessage.push({ role: "assistant", content: msg.systemResponse });
+    } else {
+    }
     const searchResult = await searchEmbeddings(userPrompt);
+    bm25Res = bm25(
+      userPrompt,
+      searchResult.map((result) => result.content)
+    );
 
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
@@ -35,20 +49,10 @@ export async function POST(req) {
     });
 
     let completeMessage = "";
-    const bm25Res = bm25(
-      userPrompt,
-      searchResult.map((result) => result.content)
-    );
-    const lastMessageReqiured = interpretContextualResponse(userPrompt);
-    let lastMessage = [];
-    if (lastMessageReqiured) {
-      console.log("-----------lastemessage", lastMessageReqiured);
-      const msg = await getMessage(cookiesStore.get("userId").value);
-      lastMessage.push({ role: "assistant", content: msg.systemResponse });
-    }
+
     const gptResponse = await getGPT4Response(
       userPrompt,
-      bm25Res[0].document,
+      bm25Res[0]?.document ?? "",
       lastMessage
     );
 

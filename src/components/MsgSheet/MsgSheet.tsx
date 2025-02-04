@@ -20,7 +20,7 @@ export function MsgSheet() {
             <ChatInterface messages={messages} addMessage={addMessage} />
           </Sheet.Content>
         </Sheet.Container>
-        <Sheet.Backdrop />
+        <Sheet.Backdrop onTap={toggleMsg} />
       </Sheet>
     </>
   );

@@ -72,7 +72,7 @@ export const AboutSection = () => {
               <CardHeader
                 className="p-6"
                 title="Beyond the code"
-                description="Explore the book shaping my perspective"
+                description="Explore what I do beyond coding."
               />
             </div>
             <div className="relative flex-1" ref={dragConstraintRef}>

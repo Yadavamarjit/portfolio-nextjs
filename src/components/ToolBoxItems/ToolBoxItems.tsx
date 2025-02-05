@@ -1,21 +1,23 @@
-import Css from "@/assets/icons/css3.svg";
-import Git from "@/assets/icons/github.svg";
-import HtmlIcon from "@/assets/icons/html5.svg";
-import ReactIcon from "@/assets/icons/react.svg";
-import JsIcon from "@/assets/icons/square-js.svg";
-import Chrome from "@/assets/icons/chrome.svg";
 import { TechIcon } from "@/components/TechIcon/TechIcon";
+import { IoLogoJavascript } from "react-icons/io";
+import { FaAws, FaGithub, FaHtml5, FaNodeJs, FaReact } from "react-icons/fa";
+import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
+import { SiAmazondynamodb, SiMongodb, SiMui } from "react-icons/si";
+import { AiFillOpenAI } from "react-icons/ai";
 
 const toolboxItems = [
-  { title: "Javascript", iconType: JsIcon },
-  { title: "ReactJS", iconType: ReactIcon },
-  { title: "NextJS", iconType: JsIcon },
-  { title: "HTML5", iconType: HtmlIcon },
-  { title: "Tailwind", iconType: Css },
-  { title: "Git", iconType: Git },
-  { title: "AWS", iconType: HtmlIcon },
-  { title: "MUI", iconType: JsIcon },
-  { title: "ExpressJS", iconType: ReactIcon },
+  { title: "Javascript", iconType: IoLogoJavascript },
+  { title: "ReactJS", iconType: FaReact },
+  { title: "NextJS", iconType: RiNextjsFill },
+  { title: "HTML5", iconType: FaHtml5 },
+  { title: "Tailwind", iconType: RiTailwindCssFill },
+  { title: "Git", iconType: FaGithub },
+  { title: "AWS", iconType: FaAws },
+  { title: "MUI", iconType: SiMui },
+  { title: "NodeJS", iconType: FaNodeJs },
+  { title: "MongoDB", iconType: SiMongodb },
+  { title: "OpenAi", iconType: AiFillOpenAI },
+  { title: "DynamoDB", iconType: SiAmazondynamodb },
 ];
 
 const ToolboxGroup = ({ reverse = false }: { reverse?: boolean }) => (
@@ -37,7 +39,7 @@ interface MarqueeProps {
 }
 
 export const ToolBoxItems = ({ reverse = false }: MarqueeProps) => (
-  <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+  <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] gap-x-6">
     <div
       className={`${
         reverse ? "animate-marquee-reverse" : "animate-marquee"

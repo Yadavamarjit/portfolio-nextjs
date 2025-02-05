@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import { addMessageType } from "@/types/messageTypes";
+import getCookie from "@/utils/userLocation";
 
 // Define types for your data
 interface Message {
@@ -68,6 +69,11 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
   const [showMsg, setShowMsg] = useState<boolean>(false);
 
   const fetchMessages = async () => {
+    const userId = getCookie("userId");
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
       const response = await axios.get("/api/messages");

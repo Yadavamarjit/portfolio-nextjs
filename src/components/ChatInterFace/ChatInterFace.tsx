@@ -320,7 +320,7 @@ const ChatInterface = ({
                     </div>
                   )}
                 </div>
-                {message.role === "assistant" && (
+                {message.role === "assistant" && !isLoading && (
                   <button
                     onClick={() => speak(message.content)}
                     className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"

@@ -63,7 +63,7 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({
   children,
 }) => {
   const [messages, setMessages] = useState<addMessageType[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showMsg, setShowMsg] = useState<boolean>(false);
 

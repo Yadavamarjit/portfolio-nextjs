@@ -34,9 +34,14 @@ export async function POST(req) {
 
 export async function GET(req) {
   try {
-    await connectToDatabase();
     const cookiesStore = cookies();
-    const userId = cookiesStore.get("userId").value;
+    const userId = cookiesStore.get("userId")?.value;
+    if (!userId)
+      return NextResponse.json(
+        { error: "UserId doesn't exists" },
+        { status: 400 }
+      );
+    await connectToDatabase();
 
     let messages;
     if (userId) {

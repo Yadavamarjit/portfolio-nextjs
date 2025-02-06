@@ -34,10 +34,11 @@ export async function POST(req) {
     } else {
     }
     const searchResult = await searchEmbeddings(userPrompt);
-    bm25Res = bm25(
-      userPrompt,
-      searchResult.map((result) => result.content)
-    );
+    // bm25Res = bm25(
+    //   userPrompt,
+    //   searchResult.map((result) => result.content)
+    // );
+    console.log({ searchResult: searchResult[0] });
 
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
@@ -56,7 +57,7 @@ export async function POST(req) {
 
     const gptResponse = await getGPT4Response(
       userPrompt,
-      bm25Res[0]?.document ?? "",
+      searchResult[0].content ?? "",
       lastMessage
     );
 

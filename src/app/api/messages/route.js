@@ -7,6 +7,7 @@ import connectToDatabase from "../../../DB/mongo";
 import message from "../../../Schema/message";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { checkForForbidding } from "@/utils/forbidAccess";
 
 export async function POST(req) {
   try {
@@ -34,6 +35,7 @@ export async function POST(req) {
 
 export async function GET(req) {
   try {
+    checkForForbidding(req);
     const cookiesStore = cookies();
     const userId = cookiesStore.get("userId")?.value;
     if (!userId)

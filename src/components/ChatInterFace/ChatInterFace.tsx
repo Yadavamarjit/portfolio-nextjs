@@ -320,18 +320,19 @@ const ChatInterface = ({
                     </div>
                   )}
                 </div>
-                {message.role === "assistant" && !isLoading && (
-                  <button
-                    onClick={() => speak(message.content)}
-                    className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"
-                  >
-                    {isSpeaking ? (
-                      <VolumeX size={16} className="text-gray-300" />
-                    ) : (
-                      <Volume2 size={16} className="text-gray-300" />
-                    )}
-                  </button>
-                )}
+                {message.role === "assistant" &&
+                  (index !== messages.length - 1 || !isLoading) && (
+                    <button
+                      onClick={() => speak(message.content)}
+                      className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"
+                    >
+                      {isSpeaking ? (
+                        <VolumeX size={16} className="text-gray-300" />
+                      ) : (
+                        <Volume2 size={16} className="text-gray-300" />
+                      )}
+                    </button>
+                  )}
               </div>
             </div>
           ))
@@ -352,7 +353,7 @@ const ChatInterface = ({
           className="flex-1 py-2 px-4 border text-white border-gray-400 focus:outline-none bg-[#3838674a] focus:border-accent/50 rounded-3xl"
           disabled={isLoading}
         />
-        <button
+        {/* <button
           type="button"
           onClick={toggleListening}
           className={`p-2 rounded transition-colors ${
@@ -366,7 +367,7 @@ const ChatInterface = ({
           ) : (
             <Mic size={20} className="text-gray-300" />
           )}
-        </button>
+        </button> */}
         <button
           type="submit"
           disabled={isLoading}

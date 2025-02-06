@@ -6,10 +6,11 @@ import { getGPT4Response } from "../../../GPT/gpt";
 import { addMessage, getMessage } from "@/utils/message";
 import { bm25 } from "@/utils/bm25";
 import { interpretContextualResponse } from "@/utils/interpretContextualResponse";
+import { checkForForbidding } from "@/utils/forbidAccess";
 export const maxDuration = 60;
 export async function POST(req) {
   const { userPrompt } = await req.json();
-
+  checkForForbidding(req);
   if (!userPrompt) {
     return new Response(JSON.stringify({ error: "userPrompt is required" }), {
       status: 400,

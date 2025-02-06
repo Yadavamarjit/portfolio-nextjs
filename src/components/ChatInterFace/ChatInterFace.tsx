@@ -22,7 +22,7 @@ const ChatInterface = ({
   const [messages, setMessages] = useState<addMessageType[]>(allMessages);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState<null | number>(null);
   const [isListening, setIsListening] = useState(false);
   const [autoSpeak, setAutoSpeak] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -93,12 +93,13 @@ const ChatInterface = ({
       .trim();
   };
 
-  const speak = (text: string) => {
+  const speak = (text: string, index: number) => {
     if (!speechSynthesis) return;
 
-    if (isSpeaking) {
-      speechSynthesis.cancel();
-      setIsSpeaking(false);
+    speechSynthesis.cancel();
+
+    if (isSpeaking !== null) {
+      setIsSpeaking(null);
       return;
     }
 
@@ -107,10 +108,10 @@ const ChatInterface = ({
     utterance.voice = speechSynthesis.getVoices()[0];
     utterance.pitch = 0.8;
     utterance.rate = 1.2;
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
+    utterance.onend = () => setIsSpeaking(null);
+    utterance.onerror = () => setIsSpeaking(null);
 
-    setIsSpeaking(true);
+    setIsSpeaking(index);
     speechSynthesis.speak(utterance);
     utterance.onend = () => {
       autoSpeak && recognitionRef.current.start();
@@ -194,7 +195,7 @@ const ChatInterface = ({
       ]);
 
       if (autoSpeak) {
-        speak(msg);
+        // speak(msg);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -323,10 +324,10 @@ const ChatInterface = ({
                 {message.role === "assistant" &&
                   (index !== messages.length - 1 || !isLoading) && (
                     <button
-                      onClick={() => speak(message.content)}
+                      onClick={() => speak(message.content, index)}
                       className="mt-1 p-1 hover:bg-[#47477f4a] rounded transition-colors"
                     >
-                      {isSpeaking ? (
+                      {isSpeaking === index ? (
                         <VolumeX size={16} className="text-gray-300" />
                       ) : (
                         <Volume2 size={16} className="text-gray-300" />

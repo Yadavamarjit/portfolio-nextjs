@@ -23,6 +23,7 @@ export const addMessage = async (
     // return new Response(JSON.stringify(messageResult), { status: 201 });
   } catch (error) {
     console.log("-----error in adding msg", error);
+    return new Response(JSON.stringify({ error }));
     // return new Response(JSON.stringify({ error: error.message }), {
     //   status: 500,
     // });

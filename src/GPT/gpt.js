@@ -22,11 +22,6 @@ export async function getGPT4Response(
     systemPrompt +
     lastMessage;
 
-  console.log("mmmmmmm", [
-    { role: "system", content: completePromt },
-    { role: "user", content: userPrompt },
-  ]);
-
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini-2024-07-18",
@@ -36,6 +31,7 @@ export async function getGPT4Response(
         { role: "user", content: userPrompt },
       ],
       // max_tokens: 2048,
+      temperature: 0.3,
       stream: true,
     });
     return response;

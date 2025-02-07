@@ -25,10 +25,10 @@ export async function POST(req) {
     let lastMessage = "";
     let bm25Res = [];
     console.log({ lastMessageReqiured });
-    const userId = cookiesStore.get("userId");
+    const userId = cookiesStore.get("userId").value;
     console.log("=====> userId", userId);
     if (lastMessageReqiured) {
-      const msg = await getMessage(cookiesStore.get("userId").value);
+      const msg = await getMessage(userId);
       lastMessage = `(meta:  this is your last response to the user last question) ${msg?.systemResponse}`;
       // lastMessage.push({ role: "assistant", content: msg.systemResponse });
     } else {

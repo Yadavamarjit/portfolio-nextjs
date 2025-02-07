@@ -25,9 +25,9 @@ export async function POST(req) {
     let lastMessage = "";
     let bm25Res = [];
     console.log({ lastMessageReqiured });
+    const userId = cookiesStore.get("userId");
+    console.log("=====> userId", userId);
     if (lastMessageReqiured) {
-      const userId = cookiesStore.get("userId");
-      console.log("iuiyjhkeri", userId);
       const msg = await getMessage(cookiesStore.get("userId").value);
       lastMessage = `(meta:  this is your last response to the user last question) ${msg?.systemResponse}`;
       // lastMessage.push({ role: "assistant", content: msg.systemResponse });
@@ -38,7 +38,7 @@ export async function POST(req) {
     //   userPrompt,
     //   searchResult.map((result) => result.content)
     // );
-    console.log({ searchResult: searchResult[0] });
+    // console.log({ searchResult: searchResult[0] });
 
     const stream = new TransformStream();
     const writer = stream.writable.getWriter();
@@ -73,12 +73,8 @@ export async function POST(req) {
             await writer.write(encoder.encode(`data: ${content}`));
           }
         }
-
-        addMessage(
-          cookiesStore.get("userId").value,
-          userPrompt,
-          completeMessage
-        );
+        console.log("=====> adding message init", userId);
+        await addMessage(userId, userPrompt, completeMessage);
         // Close the stream
         await writer.close();
       } catch (error) {

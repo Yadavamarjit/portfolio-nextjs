@@ -13,13 +13,13 @@ export const addMessage = async (
     // Create a new message
     const newMessage = new message({ userId, userMessage, systemResponse });
     const messageResult = await newMessage.save();
-
+    console.log("=====> msg saved", messageResult);
     // Update user's messagesId array
     const userResult = await user.updateOne(
       { _id: userId },
       { $push: { messagesId: messageResult._id } }
     );
-
+    console.log("=====> user updated", userResult);
     // return new Response(JSON.stringify(messageResult), { status: 201 });
   } catch (error) {
     console.log("-----error in adding msg", error);

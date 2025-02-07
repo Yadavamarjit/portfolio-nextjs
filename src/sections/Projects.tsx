@@ -3,6 +3,7 @@ import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import { useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useMessages } from "@/context/MessageContext";
 
 export const getRandomColor = () => {
   let previousColors: any = [];
@@ -42,50 +43,54 @@ export const getRandomColor = () => {
     return randomColor;
   };
 };
-const projectsData = [
-  {
-    projectName: "AskAmar",
-    description:
-      "AskAmar is an intelligent chatbot designed to provide accurate and personalized answers about my professional journey, skills, and projects. It uses advanced AI capabilities to understand queries, retrieve relevant information, and offer a seamless, conversational experience for exploring my expertise and career insights.",
-    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/ai.gif?alt=media&token=78359f6b-da87-47fa-9de4-ed89ed0f644f",
-    techs: ["NextJS", "MongoDB", "LLM", "PineconeDB", "Javascript"],
-    link: "https://fruits-catcher.netlify.app/",
-  },
-  {
-    projectName: "Fruit Catcher",
-    description:
-      "In this engaging fruit catcher game, players strive to catch falling fruits while avoiding obstacles. The game features a dynamic leaderboard to track top scores, and various in-game power-ups that enhance the gameplay experience. With its intuitive mechanics and exciting challenges, players are rewarded for their skills and quick reflexes as they compete for the highest score.",
-    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1723885548610_Screencastfrom2024-08-1300-51-19-ezgif.com-video-to-gif-converter.gif?alt=media&token=784564de-a40b-434c-a42e-5e647fdbed2b",
-    techs: ["React", "ExpressJS", "MongoDB", "Javascript"],
-    link: "https://fruits-catcher.netlify.app/",
-  },
-  {
-    projectName: "StockScope",
-    description:
-      "A dynamic user interface that displays real-time stock prices and their detailed analysis, powered by mock data. Designed for intuitive use, it offers insights into stock trends, enabling users to efficiently track and assess stock performance.",
-    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/Screencastfrom2024-09-2215-22-12-ezgif.com-optimize.gif?alt=media&token=0e95e191-901d-4f7b-8079-d740dc0fe7c7",
-    techs: ["React", "Javascript", "D3.js"],
-    link: "https://tradingscreen.netlify.app/",
-  },
-  {
-    projectName: "QTrip",
-    description:
-      "Your virtual travel hub for immersive exploration. Discover destinations with tags like cycling and skiing, simulate reservations, and manage bookings. Experience hourly activity booking and dive into detailed descriptions and images. Plan your dream journey authentically without real transactions – an innovative way to connect with travel interests.",
-    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1705453911139_qtrip.png?alt=media&token=26526642-e083-460d-af18-c205f4b5651f",
-    techs: ["ExpressJS", "React", "NodeJS", "Javascript"],
-  },
-  {
-    projectName: "QKart",
-    description:
-      'Qkart is an e-commerce web app designed to offer a seamless shopping experience. It features user authentication, allowing secure access to personalized accounts. The app also includes an "Add to Cart" functionality, enabling users to easily manage their desired products. Additionally, Qkart offers a demo payment system, providing a complete and interactive shopping experience from selection to checkout.',
-    img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1705451392416_Screenshot%202024-01-17%20055826.png?alt=media&token=7b89a1cd-26a4-4546-82fb-5fb4ba22609d",
-    techs: ["React", "ExpressJS", "MongoDB", "Javascript"],
-  },
-];
 
 export const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const { toggleMsg } = useMessages();
+
+  const projectsData = [
+    {
+      projectName: "AskAmar",
+      description:
+        "AskAmar is an intelligent chatbot designed to provide accurate and personalized answers about my professional journey, skills, and projects. It uses advanced AI capabilities to understand queries, retrieve relevant information, and offer a seamless, conversational experience for exploring my expertise and career insights.",
+      img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/ai.gif?alt=media&token=78359f6b-da87-47fa-9de4-ed89ed0f644f",
+      techs: ["NextJS", "MongoDB", "LLM", "PineconeDB", "Javascript"],
+      // link: "#",
+      onClick: toggleMsg,
+    },
+    {
+      projectName: "Fruit Catcher",
+      description:
+        "In this engaging fruit catcher game, players strive to catch falling fruits while avoiding obstacles. The game features a dynamic leaderboard to track top scores, and various in-game power-ups that enhance the gameplay experience. With its intuitive mechanics and exciting challenges, players are rewarded for their skills and quick reflexes as they compete for the highest score.",
+      img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1723885548610_Screencastfrom2024-08-1300-51-19-ezgif.com-video-to-gif-converter.gif?alt=media&token=784564de-a40b-434c-a42e-5e647fdbed2b",
+      techs: ["React", "ExpressJS", "MongoDB", "Javascript"],
+      link: "https://fruits-catcher.netlify.app/",
+    },
+    {
+      projectName: "StockScope",
+      description:
+        "A dynamic user interface that displays real-time stock prices and their detailed analysis, powered by mock data. Designed for intuitive use, it offers insights into stock trends, enabling users to efficiently track and assess stock performance.",
+      img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/Screencastfrom2024-09-2215-22-12-ezgif.com-optimize.gif?alt=media&token=0e95e191-901d-4f7b-8079-d740dc0fe7c7",
+      techs: ["React", "Javascript", "D3.js"],
+      link: "https://tradingscreen.netlify.app/",
+    },
+    {
+      projectName: "QTrip",
+      description:
+        "Your virtual travel hub for immersive exploration. Discover destinations with tags like cycling and skiing, simulate reservations, and manage bookings. Experience hourly activity booking and dive into detailed descriptions and images. Plan your dream journey authentically without real transactions – an innovative way to connect with travel interests.",
+      img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1705453911139_qtrip.png?alt=media&token=26526642-e083-460d-af18-c205f4b5651f",
+      techs: ["ExpressJS", "React", "NodeJS", "Javascript"],
+    },
+    {
+      projectName: "QKart",
+      description:
+        'Qkart is an e-commerce web app designed to offer a seamless shopping experience. It features user authentication, allowing secure access to personalized accounts. The app also includes an "Add to Cart" functionality, enabling users to easily manage their desired products. Additionally, Qkart offers a demo payment system, providing a complete and interactive shopping experience from selection to checkout.',
+      img: "https://firebasestorage.googleapis.com/v0/b/potfolio-backend.appspot.com/o/1705451392416_Screenshot%202024-01-17%20055826.png?alt=media&token=7b89a1cd-26a4-4546-82fb-5fb4ba22609d",
+      techs: ["React", "ExpressJS", "MongoDB", "Javascript"],
+    },
+  ];
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -191,6 +196,14 @@ export const ProjectCard = ({ project }: { project: any }) => {
               View Project
             </button>
           </motion.a>
+        )}
+        {project.onClick && (
+          <button
+            className="w-full mt-4 group/btn flex items-center justify-center gap-2 px-6 py-3 border border-[#64ffda] text-[#64ffda] rounded hover:bg-[#64ffda]/10 transition-colors duration-300"
+            onClick={project.onClick}
+          >
+            View Project
+          </button>
         )}
       </div>
     </div>

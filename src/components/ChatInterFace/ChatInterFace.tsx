@@ -300,7 +300,7 @@ const ChatInterface = ({
             />
           ))
         ) : (
-          <EmptyState />
+          <EmptyState handleSubmit={handleSubmit} />
         )}
         <div ref={messagesEndRef} />
       </div>

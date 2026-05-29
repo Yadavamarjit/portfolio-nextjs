@@ -7,6 +7,8 @@ import { addMessage, getMessage } from "@/utils/message";
 import { bm25 } from "@/utils/bm25";
 import { interpretContextualResponse } from "@/utils/interpretContextualResponse";
 import { checkForForbidding } from "@/utils/forbidAccess";
+import { randomUUID } from "crypto";
+
 export const maxDuration = 60;
 export async function POST(req) {
   const { userPrompt } = await req.json();
@@ -25,7 +27,10 @@ export async function POST(req) {
     let lastMessage = "";
     let bm25Res = [];
     console.log({ lastMessageReqiured });
-    const userId = cookiesStore.get("userId").value;
+
+    // Null-safe userId: fall back to a temporary UUID for new visitors
+    const userIdCookie = cookiesStore.get("userId");
+    const userId = userIdCookie?.value ?? randomUUID();
     console.log("=====> userId", userId);
     if (lastMessageReqiured) {
       const msg = await getMessage(userId);

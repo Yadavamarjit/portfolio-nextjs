@@ -4,91 +4,156 @@
 
 @layer base {
   .sec-container {
-    @apply px-12  md:px-16 lg:px-24 xl:px-32 2xl:px-40
-    lg:max-w-[85%] xl:max-w-[90%] 2xl:max-w-[95%] mx-auto lg:py-24 sm:py-16 mt-4;
+    @apply px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-40
+    lg:max-w-[85%] xl:max-w-[90%] 2xl:max-w-[95%] mx-auto
+    py-10 sm:py-12 lg:py-24 mt-2 sm:mt-4;
   }
   .sm-text {
-    @apply text-base 2xl:text-xl;
+    @apply text-sm sm:text-base 2xl:text-xl;
   }
   .title {
-    @apply text-2xl md:text-4xl lg:text-5xl font-bold;
+    @apply text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold;
   }
-
   .nav-item {
-    @apply px-4 rounded-full py-1.5 font-semibold text-white/70 transition duration-500 hover:bg-white/10 hover:text-white;
+    @apply px-3 sm:px-4 rounded-full py-1.5 font-semibold text-white/70 transition duration-500 hover:bg-white/10 hover:text-white text-sm sm:text-base;
   }
   .hero-ring {
-    @apply absolute inset-0  border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow-[0_0_80px_inset] shadow-emerald-300/5;
+    @apply absolute inset-0 border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-emerald-300/5 shadow-[0_0_80px_inset] shadow-emerald-300/5;
+  }
+
+  /* Glow utilities */
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(100,255,218,0.15), 0 0 60px rgba(100,255,218,0.05);
+  }
+  .glow-accent-strong {
+    box-shadow: 0 0 30px rgba(100,255,218,0.25), 0 0 80px rgba(100,255,218,0.1);
+  }
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl;
   }
 }
 
 @layer utilities {
-  ::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-    height: 8px; /* Height for horizontal scrollbar */
+  /* Custom cursor hidden on desktop — replaced by CustomCursor component */
+  @media (pointer: fine) {
+    * { cursor: none !important; }
   }
 
-  ::-webkit-scrollbar-track {
-    background: transparent; /* Background color */
-  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #64ffda33; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #64ffda66; }
 
-  ::-webkit-scrollbar-thumb {
-    background: #888; /* Scrollbar handle color */
-    border-radius: 4px; /* Rounded corners */
-  }
+  .container { @apply lg:max-w-5xl; }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Handle color on hover */
-  }
-  .container {
-    @apply lg:max-w-5xl;
-  }
   @variants responsive {
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  }
+
+  /* Selection color */
+  ::selection { background: rgba(100,255,218,0.2); color: #64ffda; }
+  ::-moz-selection { background: rgba(100,255,218,0.2); color: #64ffda; }
+}
+
+/* ── Mobile bottom safe-area (social links bar) ────────── */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 60px; /* height of mobile social links bar */
   }
 }
 
-.custom-marker-icon {
-  background: transparent !important;
-  border: none !important;
+/* ── Noise texture overlay ─────────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.028;
+  mix-blend-mode: overlay;
 }
 
-.leaflet-div-icon {
-  background: transparent !important;
-  border: none !important;
-}
+/* ── Leaflet map ───────────────────────────────────────── */
+.custom-marker-icon { background: transparent !important; border: none !important; }
+.leaflet-div-icon  { background: transparent !important; border: none !important; }
+.custom-pin-container { position: relative; width: 80px; height: 80px; }
 
-.custom-pin-container {
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
+/* ── Chat sheet ────────────────────────────────────────── */
 .react-modal-sheet-container {
   background-color: #222f43 !important;
   border-top-left-radius: 20px !important;
   border-top-right-radius: 20px !important;
 }
 @media (min-width: 800px) {
-  .react-modal-sheet-container {
-    width: 400px !important;
-    right: 20px !important;
-    /* left: none !important; */
-  }
+  .react-modal-sheet-container { width: 400px !important; right: 20px !important; }
 }
 @media (min-width: 1900px) {
-  .react-modal-sheet-container {
-    width: 600px !important;
-    right: 20px !important;
-    /* left: none !important; */
-  }
+  .react-modal-sheet-container { width: 600px !important; right: 20px !important; }
 }
 
-html {
-  scroll-behavior: smooth;
+html { scroll-behavior: smooth; }
+
+/* ── Keyframes ─────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.8; }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.animate-float       { animation: float 3s ease-in-out infinite; }
+.animate-glow-pulse  { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* ── Aurora / gradient border ──────────────────────────── */
+.aurora-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, #64ffda, #8b5cf6, #06b6d4, #64ffda);
+  animation: spin 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
+}
+.aurora-border:hover::before { opacity: 0.6; }
+
+/* ── Gradient text ─────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #64ffda, #8892b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Shimmer skeleton ──────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(100,255,218,0.06) 50%, transparent 100%);
+  background-size: 400px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ── Tap highlight removal (iOS) ───────────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Improved mobile touch targets ─────────────────────── */
+@media (max-width: 640px) {
+  button, a {
+    min-height: 44px;
+  }
 }

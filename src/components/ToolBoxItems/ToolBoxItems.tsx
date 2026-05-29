@@ -20,15 +20,20 @@ const toolboxItems = [
   { title: "DynamoDB", iconType: SiAmazondynamodb },
 ];
 
-const ToolboxGroup = ({ reverse = false }: { reverse?: boolean }) => (
+const ToolboxGroup = () => (
   <div className="flex flex-none py-0.5 gap-6">
-    {toolboxItems.map((item) => (
+    {toolboxItems.map((item, i) => (
       <div
-        className="inline-flex items-center outline outline-2 outline-white/10 rounded-lg gap-4 py-2 px-3"
         key={item.title}
+        className="inline-flex items-center outline outline-2 outline-white/10 rounded-lg gap-4 py-2 px-3 hover:outline-[#64ffda]/30 hover:bg-[#64ffda]/5 transition-all duration-300 cursor-default group"
+        style={{
+          animation: `float ${3 + (i % 4) * 0.5}s ease-in-out ${(i % 6) * 0.3}s infinite`,
+        }}
       >
         <TechIcon component={item.iconType} />
-        <span className="font-semibold">{item.title}</span>
+        <span className="font-semibold group-hover:text-[#64ffda] transition-colors duration-300">
+          {item.title}
+        </span>
       </div>
     ))}
   </div>
@@ -40,20 +45,14 @@ interface MarqueeProps {
 
 export const ToolBoxItems = ({ reverse = false }: MarqueeProps) => (
   <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] gap-x-6">
-    <div
-      className={`${
-        reverse ? "animate-marquee-reverse" : "animate-marquee"
-      } flex gap-6`}
-    >
-      <ToolboxGroup reverse={reverse} />
+    <div className={`${reverse ? "animate-marquee-reverse" : "animate-marquee"} flex gap-6`}>
+      <ToolboxGroup />
     </div>
     <div
-      className={`${
-        reverse ? "animate-marquee-reverse" : "animate-marquee"
-      } flex gap-6`}
+      className={`${reverse ? "animate-marquee-reverse" : "animate-marquee"} flex gap-6`}
       aria-hidden="true"
     >
-      <ToolboxGroup reverse={reverse} />
+      <ToolboxGroup />
     </div>
   </div>
 );

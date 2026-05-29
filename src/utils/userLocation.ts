@@ -53,13 +53,10 @@ export const onBoardUser = async () => {
       const response = await axios.post("/api/users", {
         ...location,
       });
-
-      //   cookieStore.set("userId", response.data._id);
     }
-
-    // return response.data._id;
   } catch (error) {
-    // console.error("Error onboarding user:", error);
-    throw error;
+    // Silently handle onboarding errors (e.g. no DB in local dev)
+    console.warn("onBoardUser skipped:", (error as Error).message);
   }
 };
+

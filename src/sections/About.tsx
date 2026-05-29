@@ -48,11 +48,11 @@ export const AboutSection = () => {
     setLoader(true);
   }, []);
   return (
-    <div className="sec-container " id="about">
+    <div className="sec-container !px-4 sm:!px-8 md:!px-16 lg:!px-24 pb-20 md:pb-0" id="about">
       <SectionTitle title="About Me" />
       <AchievementsShowcase />
-      <div className="mt-10 flex flex-col gap-6">
-        <div className="grid md:grid-cols-5 md:gap-8 gap-y-6">
+      <div className="mt-8 sm:mt-10 flex flex-col gap-5 sm:gap-6">
+        <div className="grid md:grid-cols-5 md:gap-8 gap-y-5">
           {" "}
           <Card className="h-[320px] p-0 relative col-span-3">
             <div>

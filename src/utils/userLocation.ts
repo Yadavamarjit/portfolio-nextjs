@@ -1,40 +1,34 @@
 import axios from "axios";
+
 interface LocationResponse {
-  city: string;
-  region: string;
-  country_name: string;
-  latitude: number;
-  longitude: number;
+  city?: string;
+  region?: string;
+  country_name?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
-export const userLocation = async () => {
+export const userLocation = async (): Promise<LocationResponse | null> => {
   try {
-    try {
-      const response = await axios.get("https://ipapi.co/json");
-      const data: LocationResponse = response.data;
-      return data;
-    } catch (err) {
-      console.log("Error909", err);
-    }
-  } catch (error) {
-    console.error("Error fetching location:", error);
-    throw error;
+    const response = await axios.get("https://ipapi.co/json", { timeout: 3000 });
+    return response.data;
+  } catch (err) {
+    // Return null silently if rate limited or offline
+    return null;
   }
 };
 
-interface OnBoardUserParams {
-  userId: string;
-}
-export function getCookie(cname: string) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
+export function getCookie(cname: string): string {
+  if (typeof document === "undefined") return "";
+  const name = cname + "=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(";");
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0) == " ") {
+    while (c.charAt(0) === " ") {
       c = c.substring(1);
     }
-    if (c.indexOf(name) == 0) {
+    if (c.indexOf(name) === 0) {
       return c.substring(name.length, c.length);
     }
   }
@@ -43,20 +37,21 @@ export function getCookie(cname: string) {
 
 export default getCookie;
 
+let isBoarding = false;
+
 export const onBoardUser = async () => {
+  if (isBoarding) return;
   try {
     const existingUserId = getCookie("userId");
-    let userId;
     if (!existingUserId) {
+      isBoarding = true;
       const location = await userLocation();
-
-      const response = await axios.post("/api/users", {
-        ...location,
-      });
+      await axios.post("/api/users", location || {});
     }
   } catch (error) {
-    // Silently handle onboarding errors (e.g. no DB in local dev)
+    // Silently handle onboarding errors
     console.warn("onBoardUser skipped:", (error as Error).message);
+  } finally {
+    isBoarding = false;
   }
 };
-

@@ -46,10 +46,8 @@
 
   .container { @apply lg:max-w-5xl; }
 
-  @variants responsive {
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
   /* Selection color */
   ::selection { background: rgba(100,255,218,0.2); color: #64ffda; }

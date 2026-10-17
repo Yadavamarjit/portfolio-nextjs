@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Linkedin,
-  Instagram,
   Mail,
   Calendar,
   ArrowRight,
@@ -32,14 +31,6 @@ const ContactSection: React.FC = () => {
       label: "LinkedIn",
       description: "Connect professionally & follow my career journey",
       color: "#0077b5",
-    },
-    {
-      id: "instagram",
-      href: "https://www.instagram.com/amerjit.yadav___/",
-      icon: <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />,
-      label: "Instagram",
-      description: "Follow my creative side & daily inspirations",
-      color: "#e1306c",
     },
     {
       id: "email",
@@ -78,7 +69,7 @@ const ContactSection: React.FC = () => {
         </div>
 
         {/* Social links */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-16 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10 sm:mb-16 max-w-4xl mx-auto">
           {socialLinks.map((link, i) => (
             <a
               key={link.id}

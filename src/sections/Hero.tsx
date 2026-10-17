@@ -142,6 +142,10 @@ export const HeroSection = () => {
           transition={{ delay: 0.15 }}
         >
           Yadav Amarjit.
+          <span className="sr-only">
+            {" "}
+            (Amarjit Yadav) | Full Stack Software Developer, Tech Lead &amp; AI Engineer
+          </span>
         </motion.h1>
 
         {/* Typewriter heading */}

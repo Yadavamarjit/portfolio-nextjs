@@ -1,11 +1,10 @@
 import React from "react";
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 
 const socialLinks = [
   { id: "github", href: "https://github.com/Yadavamarjit", icon: <Github size={18} />, label: "Github" },
   { id: "linkedin", href: "https://www.linkedin.com/in/yadav-amarjit/", icon: <Linkedin size={18} />, label: "LinkedIn" },
-  { id: "instagram", href: "https://www.instagram.com/amerjit.yadav___/", icon: <Instagram size={18} />, label: "Instagram" },
   { id: "email", href: "mailto:yadavamarjit772@gmail.com", icon: <Mail size={18} />, label: "Email" },
 ];
 

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
@@ -41,7 +41,7 @@ const CustomCursor = () => {
       window.removeEventListener("mousedown", down);
       window.removeEventListener("mouseup", up);
     };
-  }, []);
+  }, [cursorX, cursorY, visible]);
 
   // Don't render on touch devices at all
   if (isTouchDevice) return null;

@@ -1,4 +1,3 @@
-import { a, s } from "framer-motion/client";
 import type { Config } from "tailwindcss";
 
 const config: Config = {

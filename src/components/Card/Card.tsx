@@ -1,6 +1,7 @@
 import GraingImg from "@/assets/images/grain.jpg";
 import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
+
 export const Card = ({
   className,
   children,

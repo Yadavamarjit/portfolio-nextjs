@@ -1,11 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL !== "http://localhost:3000"
-      ? process.env.NEXT_PUBLIC_SITE_URL
-      : "https://yadavamarjit.vercel.app";
-
+  const siteUrl = "https://ydvamar.online";
   const now = new Date();
 
   return [

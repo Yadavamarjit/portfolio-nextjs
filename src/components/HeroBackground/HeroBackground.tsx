@@ -17,7 +17,6 @@ function generateParticles(count: number): Float32Array {
 
 const ParticleField = () => {
   const ref = useRef<THREE.Points>(null);
-  const { viewport } = useThree();
 
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const basePositions = useMemo(() => generateParticles(3500), []);

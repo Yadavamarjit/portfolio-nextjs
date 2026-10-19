@@ -19,10 +19,7 @@ const calistoga = Calistoga({
   fallback: ["Georgia", "serif"],
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL !== "http://localhost:3000"
-    ? process.env.NEXT_PUBLIC_SITE_URL
-    : "https://yadavamarjit.vercel.app";
+const siteUrl = "https://ydvamar.online";
 
 export const viewport: Viewport = {
   themeColor: "#0a192f",
@@ -33,29 +30,45 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Amarjit Yadav | Full Stack Developer & Tech Lead",
-    template: "%s | Amarjit Yadav (Yadav Amarjit)",
+    default: "Amarjit Yadav (Yadv Amar / Yadav Amar) | Tech Lead & Full Stack Developer",
+    template: "%s | Amarjit Yadav (Yadv Amar)",
   },
   description:
-    "Official portfolio of Amarjit Yadav (Yadav Amarjit) — Tech Lead, Full Stack Developer, and Software Engineer. Specializing in React, Next.js, Node.js, TypeScript, Cloud Architecture, and AI/LLM solutions.",
+    "Official website of Amarjit Yadav (also known as Yadav Amarjit, Yadv Amar, Yadav Amar, ydvamar). Tech Lead, Full Stack Developer, and Software Engineer specializing in React, Next.js, Node.js, TypeScript, Cloud Architecture, and AI/LLM products.",
   applicationName: "Amarjit Yadav Portfolio",
   authors: [{ name: "Amarjit Yadav", url: "https://github.com/Yadavamarjit" }],
   generator: "Next.js",
   keywords: [
-    // Name variations
-    "Amarjit Yadav",
-    "Yadav Amarjit",
-    "Amarjit",
-    "yadavamarjit",
-    "Amarjit Yadav portfolio",
-    "Yadav Amarjit portfolio",
-    "Amarjit Yadav developer",
-    "Yadav Amarjit developer",
-    "Amarjit Yadav software engineer",
-    "Amarjit Yadav tech lead",
-    "Amarjit Yadav GitHub",
-    "Amarjit Yadav LinkedIn",
-    // Roles & Titles
+    // Direct search queries requested by user
+    "amarjit",
+    "yadv amar",
+    "yadav amarjit",
+    "yadav amar",
+    "amarjit yadav",
+    "ydvamar",
+    "ydv amar",
+    "amar",
+    "ydvamar.online",
+    // Name & Portfolio queries
+    "amarjit portfolio",
+    "yadv amar portfolio",
+    "yadav amar portfolio",
+    "yadav amarjit portfolio",
+    "amarjit yadav portfolio",
+    "ydvamar portfolio",
+    // Professional search queries
+    "amarjit developer",
+    "amarjit software engineer",
+    "yadv amar developer",
+    "yadav amar developer",
+    "yadav amarjit developer",
+    "amarjit yadav software engineer",
+    "amarjit yadav tech lead",
+    "yadv amar tech lead",
+    "amarjit github",
+    "amarjit linkedin",
+    "yadavamarjit github",
+    // Tech roles
     "Software Developer",
     "Software Engineer",
     "Full Stack Developer",
@@ -71,7 +84,7 @@ export const metadata: Metadata = {
     "Next.js Developer",
     "Node.js Developer",
     "MERN Stack Developer",
-    // Technologies
+    // Tech Stack
     "TypeScript",
     "JavaScript",
     "React",
@@ -90,59 +103,74 @@ export const metadata: Metadata = {
     "Pinecone",
     "REST API",
     "Microservices",
-    // Domains & Skills
+    // Domain & Intent
     "Web Application Development",
     "Performance Optimization",
     "Real-time Systems",
     "E-commerce Checkout",
     "AI Chatbots",
     "AskAmar",
-    // Intent / Hiring
     "Hire Full Stack Developer",
     "Hire Software Engineer",
     "Hire React Developer",
     "Software Developer India",
   ],
-  creator: "Amarjit Yadav",
+  creator: "Amarjit Yadav (Yadv Amar)",
   publisher: "Amarjit Yadav",
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   openGraph: {
     type: "profile",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Amarjit Yadav Portfolio",
-    title: "Amarjit Yadav | Full Stack Developer & Tech Lead",
+    siteName: "Amarjit Yadav (Yadv Amar) Portfolio",
+    title: "Amarjit Yadav (Yadv Amar / Yadav Amar) | Tech Lead & Full Stack Developer",
     description:
-      "Explore the work of Amarjit Yadav (Yadav Amarjit) — Tech Lead and Full Stack Software Developer building high-performance web applications, real-time systems, and AI-driven products.",
+      "Explore projects, achievements, and tech stacks by Amarjit Yadav (Yadav Amarjit, Yadv Amar, Yadav Amar, ydvamar) — Tech Lead and Full Stack Software Developer.",
     images: [
       {
-        url: "https://i.ibb.co/JBZBPRK/Screenshot-2025-01-07-012552.png",
-        width: 1200,
-        height: 630,
-        alt: "Amarjit Yadav - Full Stack Developer Portfolio",
+        url: `${siteUrl}/amar.webp`,
+        secureUrl: `${siteUrl}/amar.webp`,
+        width: 800,
+        height: 800,
+        alt: "Amarjit Yadav (Yadav Amarjit, Yadv Amar) - Tech Lead & Full Stack Developer",
+        type: "image/webp",
+      },
+      {
+        url: `${siteUrl}/assets/amar.webp`,
+        secureUrl: `${siteUrl}/assets/amar.webp`,
+        width: 800,
+        height: 800,
+        alt: "Amarjit Yadav Profile Photo",
+        type: "image/webp",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amarjit Yadav | Full Stack Developer & Tech Lead",
+    title: "Amarjit Yadav (Yadv Amar / Yadav Amar) | Tech Lead & Full Stack Developer",
     description:
-      "Official portfolio of Amarjit Yadav (Yadav Amarjit) — Tech Lead and Full Stack Developer.",
-    images: ["https://i.ibb.co/JBZBPRK/Screenshot-2025-01-07-012552.png"],
+      "Official portfolio of Amarjit Yadav (Yadav Amarjit, Yadv Amar, Yadav Amar) — Tech Lead & Full Stack Developer.",
+    images: [`${siteUrl}/amar.webp`],
     creator: "@yadavamarjit",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/amar.webp",
   },
   category: "technology",
 };
@@ -159,12 +187,29 @@ export default function RootLayout({
         "@type": "Person",
         "@id": `${siteUrl}/#person`,
         name: "Amarjit Yadav",
-        alternateName: ["Yadav Amarjit", "Amarjit", "yadavamarjit"],
+        alternateName: [
+          "Yadav Amarjit",
+          "Yadv Amar",
+          "Yadav Amar",
+          "Amarjit",
+          "Amar",
+          "ydvamar",
+          "ydv amar",
+          "yadavamarjit",
+        ],
         url: siteUrl,
-        image: "https://i.ibb.co/JBZBPRK/Screenshot-2025-01-07-012552.png",
+        image: {
+          "@type": "ImageObject",
+          "@id": `${siteUrl}/#primaryimage`,
+          url: `${siteUrl}/amar.webp`,
+          contentUrl: `${siteUrl}/amar.webp`,
+          caption: "Amarjit Yadav (Yadv Amar / Yadav Amarjit) - Tech Lead & Full Stack Developer",
+          width: 800,
+          height: 800,
+        },
         jobTitle: "Tech Lead & Full Stack Software Developer",
         description:
-          "Amarjit Yadav (Yadav Amarjit) is a Tech Lead and Full Stack Software Developer specializing in React, Next.js, Node.js, TypeScript, Cloud Architecture, and AI/LLM integration.",
+          "Amarjit Yadav (also searched as Yadv Amar, Yadav Amar, Yadav Amarjit, Amarjit) is a Tech Lead and Full Stack Software Developer specializing in Next.js, React, Node.js, Cloud Architecture, and AI/LLM systems.",
         sameAs: [
           "https://github.com/Yadavamarjit",
           "https://www.linkedin.com/in/yadav-amarjit/",
@@ -206,10 +251,16 @@ export default function RootLayout({
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
         url: siteUrl,
-        name: "Amarjit Yadav Portfolio",
-        alternateName: "Yadav Amarjit Portfolio",
+        name: "Amarjit Yadav | Yadv Amar Portfolio",
+        alternateName: [
+          "Yadav Amarjit Portfolio",
+          "Yadv Amar Portfolio",
+          "Yadav Amar Portfolio",
+          "ydvamar.online",
+          "Amarjit Portfolio",
+        ],
         description:
-          "Official portfolio of Amarjit Yadav (Yadav Amarjit), Tech Lead and Full Stack Developer.",
+          "Official portfolio of Amarjit Yadav (Yadv Amar / Yadav Amarjit), Tech Lead and Full Stack Developer.",
         publisher: {
           "@id": `${siteUrl}/#person`,
         },
@@ -218,7 +269,7 @@ export default function RootLayout({
         "@type": "ProfilePage",
         "@id": `${siteUrl}/#profilepage`,
         url: siteUrl,
-        name: "Amarjit Yadav (Yadav Amarjit) - Profile",
+        name: "Amarjit Yadav (Yadv Amar, Yadav Amar, Yadav Amarjit) - Profile",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
@@ -228,6 +279,20 @@ export default function RootLayout({
         mainEntity: {
           "@id": `${siteUrl}/#person`,
         },
+        primaryImageOfPage: {
+          "@id": `${siteUrl}/#primaryimage`,
+        },
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${siteUrl}/#primaryimage`,
+        url: `${siteUrl}/amar.webp`,
+        contentUrl: `${siteUrl}/amar.webp`,
+        name: "Amarjit Yadav (Yadav Amarjit, Yadv Amar, Yadav Amar)",
+        caption: "Amarjit Yadav - Full Stack Software Developer & Tech Lead",
+        representativeOfPage: true,
+        width: 800,
+        height: 800,
       },
     ],
   };
@@ -235,6 +300,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="canonical" href={siteUrl} />
+        <meta property="og:image:alt" content="Amarjit Yadav (Yadv Amar, Yadav Amar)" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

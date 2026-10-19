@@ -13,7 +13,6 @@ const words = [
   "Fast-loading",
   "Intuitive",
   "Robust",
-  "Responsive",
   "SEO-optimized",
   "Cross-platform",
   "Maintainable",
